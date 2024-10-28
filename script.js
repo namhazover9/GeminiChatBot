@@ -7,6 +7,7 @@ const deleteChatButton = document.querySelector("#delete-chat-button");
 let userMessage = null;
 let isResponseGenerating = false;
 
+
 // API configuration
 const API_KEY = "AIzaSyC8e5jD2ccpBnEjLM9oKipA7O2xuMa8MBQ";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
@@ -53,7 +54,7 @@ const showTypingEffect = (text, textElement, incomingMessageDiv) => {
             localStorage.setItem("savedChats", chatList.innerHTML); // Save the chat list to the local storage        
         }
         chatList.scrollTo(0, chatList.scrollHeight); // Scroll to the bottom of the chat list
-    }, 50); // Set the typing speed
+    }, 20); // Set the typing speed
 }
 
 // Fetch response from the API based on user's message
@@ -79,7 +80,8 @@ const generateAPIResponse = async (incomingMessageDiv) => {
         
         // Get the API response text and remove asterisks from it
         const apiResponse = data?.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '$1'); // Extract the response from the JSON data
-        showTypingEffect(apiResponse, textElement, incomingMessageDiv); // Show typing effect for the API response
+        showTypingEffect(apiResponse, textElement, incomingMessageDiv); // Show typing effect for the API response   
+
     } catch (error) {
         isResponseGenerating = false; // Set the response generating state to false
         textElement.innerText = error.message; // Display the error message in the text element
@@ -98,7 +100,6 @@ const showLoadingAnimation = () => {
             <div class="text-container-bot">
                 <p class="text"></p>
             </div>
-      
             <div class="loading-indicator">
                 <div class="loading-bar"></div>
                 <div class="loading-bar"></div>
@@ -120,7 +121,7 @@ const copyMessage = (copyIcon) => {
     navigator.clipboard.writeText(messageText); // Copy the message text to the clipboard
     copyIcon.innerText = "done"; // Change the icon to a checkmark
     setTimeout(() => copyIcon.innerText = "content_copy", 1000); // Change the icon back to a copy icon after 1 sec
-
+    // Copy the message text to the clipboard
 }
 
 // Handle sending outgoing chat messages
