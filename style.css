@@ -12,7 +12,7 @@
     --text-color: #fff;
     --subheading-color: #828282;
     --placeholder-color: #a6a6a6;
-    --primary-color: #242424;
+    --primary-color: #474747;
     --secondary-color: linear-gradient(180deg, #2F8B9E 0%, #E0DB9B 100%);
     --secondary-hover-color: linear-gradient(360deg, #2F8B9E 0%, #E0DB9B 100%);
 }
@@ -172,7 +172,7 @@ body.hide-header .header {
 }
 
 .text-container-bot {
-    
+    margin-bottom: 12px;
     padding: 10px;
     border-radius: 12px;
     box-shadow: 0 2px 4px rgba(255, 247, 153, 1);
@@ -218,21 +218,28 @@ body.hide-header .header {
     width: 100%;
     border-radius: 0.14rem;
     background: linear-gradient(to right, #82CDDD, var(--primary-color), #FFF799);
-    animation: animate 3s linear infinite;
+    animation: animate 2.5s ease-in-out infinite;
 }
 
-.chat-list .loading-indicator .loading-bar:last-child {
+/* .chat-list .loading-indicator .loading-bar:last-child {
     width: 70%;
-}
+} */
 
 @keyframes animate {
     0% {
-        background-position: -800px 0;
+        opacity: 1;
     }
-
-    100% {
+    25% {
+        background-position: -800px 0;;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    75% {
         background-position: 800px 0;
-
+    }
+    100% {
+        opacity: 1;
     }
 }
 

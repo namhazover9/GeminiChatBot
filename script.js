@@ -53,7 +53,7 @@ const showTypingEffect = (text, textElement, incomingMessageDiv) => {
             localStorage.setItem("savedChats", chatList.innerHTML); // Save the chat list to the local storage        
         }
         chatList.scrollTo(0, chatList.scrollHeight); // Scroll to the bottom of the chat list
-    }, 50); // Set the typing speed
+    }, 20); // Set the typing speed
 }
 
 // Fetch response from the API based on user's message
