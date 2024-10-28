@@ -56,7 +56,7 @@ body.hide-header .header {
 }
 
 /* Header - Viet Duc */
-@media screen and (min-width: 1024px) {
+@media only screen and (min-width: 769px) {
     .header-title {
         .header-button {
             margin: -2% 0 3%;
@@ -110,6 +110,7 @@ body.hide-header .header {
             }
         }
         .header-content {
+            margin-bottom: -5%;
             .title {
                 font-size: 2.7rem;
                 width: fit-content;
@@ -412,7 +413,7 @@ body.hide-header .header {
             }
         }
         .header-content {
-            margin: 6% 0 -10%;
+            margin: 6% 0 -6%;
             .title {
                 font-size: 2rem;
                 width: fit-content;
