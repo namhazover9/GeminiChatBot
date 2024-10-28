@@ -14,10 +14,10 @@ const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-
 // Load the local storage data when the page loads
 const loadLocalStorageData = () => {
     const savedChats = localStorage.getItem("savedChats"); // Get the saved chats from the local storage
-    const isLightMode = (localStorage.getItem("themeColor")  === "light_mode");// Getting the local storage themeColor value
+    const isLightMode = (localStorage.getItem("themeColor")  === "light_mode"); // Getting the local storage themeColor value
     
     // Apply the stored theme to the website
-    document.body.classList.toggle("light_mode", isLightMode);
+    document.body.classList.toggle("light_mode", isLightMode); 
     toggleThemeButton.innerText = isLightMode ? "dark_mode" : "light_mode";
 
     // Restore the chat list from the local storage
@@ -53,7 +53,7 @@ const showTypingEffect = (text, textElement, incomingMessageDiv) => {
             localStorage.setItem("savedChats", chatList.innerHTML); // Save the chat list to the local storage        
         }
         chatList.scrollTo(0, chatList.scrollHeight); // Scroll to the bottom of the chat list
-    }, 75); // Set the typing speed
+    }, 50); // Set the typing speed
 }
 
 // Fetch response from the API based on user's message
@@ -62,25 +62,24 @@ const generateAPIResponse = async (incomingMessageDiv) => {
 
     // Send a POST request to the API with the user's message
     try {
-    const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            contents: [{
-                role: "user",
-                parts: [{text: userMessage}]
-            }]
-        })
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                contents: [{
+                    role: "user",
+                    parts: [{text: userMessage}]
+                }]
+            })
 
-    });
+        });
 
-    const data = await response.json(); // Parse the JSON response
-    if(!response.ok) throw new Error(data.error.message); // Throw an error if the response is not ok
-    
-    // Get the API response text and remove asterisks from it
-    const apiResponse = data?.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '$1'); // Extract the response from the JSON data
-    showTypingEffect(apiResponse, textElement, incomingMessageDiv); // Show typing effect for the API response
-
+        const data = await response.json(); // Parse the JSON response
+        if(!response.ok) throw new Error(data.error.message); // Throw an error if the response is not ok
+        
+        // Get the API response text and remove asterisks from it
+        const apiResponse = data?.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '$1'); // Extract the response from the JSON data
+        showTypingEffect(apiResponse, textElement, incomingMessageDiv); // Show typing effect for the API response
     } catch (error) {
         isResponseGenerating = false; // Set the response generating state to false
         textElement.innerText = error.message; // Display the error message in the text element

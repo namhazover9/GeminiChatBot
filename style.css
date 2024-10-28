@@ -9,12 +9,12 @@
 
 :root {
     /* Dark mode colors */
-    --text-color: #e3e3e3;
+    --text-color: #fff;
     --subheading-color: #828282;
     --placeholder-color: #a6a6a6;
     --primary-color: #242424;
-    --secondary-color: #383838;
-    --secondary-hover-color: #444;
+    --secondary-color: linear-gradient(180deg, #2F8B9E 0%, #E0DB9B 100%);
+    --secondary-hover-color: linear-gradient(360deg, #2F8B9E 0%, #E0DB9B 100%);
 }
 
 .light_mode {
@@ -23,8 +23,8 @@
     --subheading-color: #A0A0A0;
     --placeholder-color: #6c6c6c;
     --primary-color: #fff;
-    --secondary-color: #e9eef6;
-    --secondary-hover-color: #dbe1ea;
+    --secondary-color:linear-gradient(180deg, #82CDDD 0%, #FFF799 100%);
+    --secondary-hover-color: linear-gradient(360deg, #82CDDD 0%, #FFF799 100%);
 }
 
 body {
@@ -59,7 +59,7 @@ body.hide-header .header {
     font-size: 2.7rem;
     width: fit-content;
     background-clip: text;
-    background: linear-gradient(to right, #4285f4, #d96570);
+    background: linear-gradient(to right, #82CDDD, #FFF799);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -107,7 +107,7 @@ body.hide-header .header {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: var(--primary-color);
+    background: #222;
 }
 
 /* ----------------------------Chat List-------------------------- */
@@ -198,7 +198,7 @@ body.hide-header .header {
     height: 11px;
     width: 100%;
     border-radius: 0.14rem;
-    background: linear-gradient(to right, #4285f4, var(--primary-color), #4285f4);
+    background: linear-gradient(to right, #82CDDD, var(--primary-color), #FFF799);
     animation: animate 3s linear infinite;
 }
 
