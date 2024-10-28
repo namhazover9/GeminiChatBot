@@ -7,6 +7,7 @@ const deleteChatButton = document.querySelector("#delete-chat-button");
 let userMessage = null;
 let isResponseGenerating = false;
 
+
 // API configuration
 const API_KEY = "AIzaSyC8e5jD2ccpBnEjLM9oKipA7O2xuMa8MBQ";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
@@ -79,7 +80,8 @@ const generateAPIResponse = async (incomingMessageDiv) => {
         
         // Get the API response text and remove asterisks from it
         const apiResponse = data?.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '$1'); // Extract the response from the JSON data
-        showTypingEffect(apiResponse, textElement, incomingMessageDiv); // Show typing effect for the API response
+        showTypingEffect(apiResponse, textElement, incomingMessageDiv); // Show typing effect for the API response   
+
     } catch (error) {
         isResponseGenerating = false; // Set the response generating state to false
         textElement.innerText = error.message; // Display the error message in the text element
@@ -130,7 +132,7 @@ const handleOutgoingChat = () => {
     isResponseGenerating = true; // Set the response generating state to true
 
     const html = `
-        <div class="message-content">
+        <div class="message-content" >
             <img src="images/nam2.jpg" alt="User Image" class="avatar">
             <div class="text-container-user">
                 <p class="text"></p>

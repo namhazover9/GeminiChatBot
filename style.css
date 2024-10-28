@@ -11,20 +11,28 @@
     /* Dark mode colors */
     --text-color: #fff;
     --subheading-color: #828282;
-    --placeholder-color: #a6a6a6;
+    --placeholder-color: #fff;
     --primary-color: #474747;
-    --secondary-color: linear-gradient(180deg, #2F8B9E 0%, #E0DB9B 100%);
-    --secondary-hover-color: linear-gradient(360deg, #2F8B9E 0%, #E0DB9B 100%);
+    --secondary-color:  radial-gradient(
+        circle farthest-corner at 10% 20%,
+        #2F8B9E 0%,
+        #E0DB9B 90%
+      );
+    --secondary-hover-color: linear-gradient(180deg, #2F8B9E 0%, #E0DB9B 100%);
 }
 
 .light_mode {
     /* Light mode colors */
     --text-color: #222;
     --subheading-color: #A0A0A0;
-    --placeholder-color: #6c6c6c;
+    --placeholder-color: #000;
     --primary-color: #fff;
-    --secondary-color:linear-gradient(180deg, #82CDDD 0%, #FFF799 100%);
-    --secondary-hover-color: linear-gradient(360deg, #82CDDD 0%, #FFF799 100%);
+    --secondary-color: radial-gradient(
+        circle farthest-corner at 10% 20%,
+        #82CDDD 0%,
+        #FFF799 90%
+      );
+    --secondary-hover-color: linear-gradient(180deg, #82CDDD 0%, #FFF799 100%);
 }
 
 body {
@@ -96,6 +104,9 @@ body.hide-header .header {
 
 .suggestion-list .suggestion:hover {
     background: var(--secondary-hover-color);
+    opacity: 0.9;
+    transform: rotate(1deg);
+    transition: all 0.3s ease;
 }
 
 .suggestion-list .suggestion .text {
@@ -151,6 +162,21 @@ body.hide-header .header {
         transform: rotate(360deg);
     }
 }
+
+.text-container-user {
+    
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(130, 205, 221, 1);
+}
+
+.text-container-bot {
+    
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(255, 247, 153, 1);
+}
+
 
 .chat-list .message .text {
     color: var(--text-color);
@@ -321,6 +347,9 @@ body.hide-header .header {
     text-align: center;
     color: var(--placeholder-color)
 }
+
+
+
 
 /* Responsive media query code for small screen */
 @media (max-width: 768px) {
