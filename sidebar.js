@@ -1,3 +1,11 @@
+// Sidebar
+const hamBurger = document.querySelector(".toggle-btn");
+
+hamBurger.addEventListener("click", function () {
+  document.querySelector("#sidebar").classList.toggle("expand");
+});
+
+// API
 const typingForm = document.querySelector(".typing-form");
 const chatList = document.querySelector(".chat-list");
 const suggestions = document.querySelectorAll(".suggestion-list .suggestion");
@@ -43,7 +51,6 @@ const createMessageElement = (content, ...classes) => {
 const showTypingEffect = (text, textElement, incomingMessageDiv) => {
   const words = text.split(" "); // Split the text into words
   let currentWordIndex = 0; // Initialize the current word index
-
   const typingInterval = setInterval(() => {
     // Append each word to the text element with a space
     textElement.innerText +=
@@ -62,7 +69,6 @@ const showTypingEffect = (text, textElement, incomingMessageDiv) => {
 // Fetch response from the API based on user's message
 const generateAPIResponse = async (incomingMessageDiv) => {
   const textElement = incomingMessageDiv.querySelector(".text"); // Get the text element of the incoming message
-
   // Send a POST request to the API with the user's message
   try {
     const response = await fetch(API_URL, {
@@ -86,6 +92,7 @@ const generateAPIResponse = async (incomingMessageDiv) => {
       /\*\*(.*?)\*\*/g,
       "$1"
     ); // Extract the response from the JSON data
+    console.log("Model's Response:", apiResponse);
     showTypingEffect(apiResponse, textElement, incomingMessageDiv); // Show typing effect for the API response
   } catch (error) {
     isResponseGenerating = false; // Set the response generating state to false
@@ -144,6 +151,11 @@ const handleOutgoingChat = () => {
   outgoingMessageDiv.querySelector(".text").innerText = userMessage; // Set the user message to the text element
   chatList.appendChild(outgoingMessageDiv); // Append the outgoing message to the chat list
 
+  const historyChats = localStorage.getItem("historyChats") || "";
+  localStorage.getItem(
+    "historyChats",
+    historyChats + outgoingMessageDiv.outerHTML
+  );
   typingForm.reset(); // Clear input field
   chatList.scrollTo(0, chatList.scrollHeight); // Scroll to the bottom of the chat list
 
