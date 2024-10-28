@@ -94,8 +94,11 @@ const generateAPIResponse = async (incomingMessageDiv) => {
 const showLoadingAnimation = () => {
     const html = `
         <div class="message-content">
-            <img src="images/gemini.svg" alt="Gemini Image" class="avatar">
-            <p class="text"></p>
+            <img src="images/BigF.png" alt="Gemini Image" class="avatar">
+            <div class="text-container-bot">
+                <p class="text"></p>
+            </div>
+      
             <div class="loading-indicator">
                 <div class="loading-bar"></div>
                 <div class="loading-bar"></div>
@@ -128,9 +131,11 @@ const handleOutgoingChat = () => {
     isResponseGenerating = true; // Set the response generating state to true
 
     const html = `
-        <div class="message-content">
+        <div class="message-content" >
             <img src="images/nam2.jpg" alt="User Image" class="avatar">
-            <p class="text"></p>
+            <div class="text-container-user">
+                <p class="text"></p>
+            </div>
         </div>`;
 
     const outgoingMessageDiv = createMessageElement(html, "outgoing"); // Create an outgoing message element

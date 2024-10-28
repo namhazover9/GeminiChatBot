@@ -146,6 +146,21 @@ body.hide-header .header {
     }
 }
 
+.text-container-user {
+    
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(130, 205, 221, 1);
+}
+
+.text-container-bot {
+    
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(255, 247, 153, 1);
+}
+
+
 .chat-list .message .text {
     color: var(--text-color);
 }
