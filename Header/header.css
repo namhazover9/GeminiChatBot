@@ -13,9 +13,8 @@
     --subheading-color: #828282;
     --placeholder-color: #a6a6a6;
     --primary-color: #242424;
-    --secondary-color: #383838;
-    --secondary-hover-color: #444;
-    --my-gradient-color: linear-gradient(180deg, #82CDDD 0%, #FFF799 100%);
+    --secondary-color: linear-gradient(180deg, #2F8B9E 0%, #E0DB9B 100%);
+    --secondary-hover-color: linear-gradient(360deg, #2F8B9E 0%, #E0DB9B 100%);
 }
 
 .light_mode {
@@ -24,8 +23,8 @@
     --subheading-color: #A0A0A0;
     --placeholder-color: #6c6c6c;
     --primary-color: #fff;
-    --secondary-color: #e9eef6;
-    --secondary-hover-color: #dbe1ea;
+    --secondary-color:linear-gradient(180deg, #82CDDD 0%, #FFF799 100%);
+    --secondary-hover-color: linear-gradient(360deg, #82CDDD 0%, #FFF799 100%);
 }
 
 body {
@@ -56,42 +55,75 @@ body.hide-header .header {
     line-height: 3.6rem;
 }
 
-.header-title {
-    display: flex;
-    justify-content: space-between;
-}
-
-.header img {
-    width: 10%;
-    height: auto;
-    margin: -3% 0 3%;
-}
-
-.header .title {
-    font-size: 2.7rem;
-    width: fit-content;
-    background-clip: text;
-    background: var(--my-gradient-color);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.header .subtitle {
-    font-size: 2.4rem;
-    color: var(--subheading-color);
-}
-
-.header .icon {
-    transition: transform 0.5s ease, color 0.5s ease;
-}
-
-.header .icon:hover {
-    color: #3c3c3c;
-    background: var(--my-gradient-color);
-    height: 100%;
-    border-radius: 50%;
-    padding: 5px;
-    transform: scale(1.2);
+/* Header - Viet Duc */
+@media screen and (min-width: 1024px) {
+    .header-title {
+        .header-button {
+            margin: -2% 0 3%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .img-chatbot {
+                width: 7%;
+                height: auto;
+            }
+            .header-button-right {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                .icon {
+                    padding: 2%;
+                    margin-right: 15%;
+                    transition: transform 0.5s ease;
+                }
+                .icon:hover {
+                    background: var(--secondary-hover-color);
+                    border-radius: 50%;
+                    transform: scale(1.2);
+                }
+                .div-img {
+                    width: 10%;
+                    line-height: 0px;
+                    .img-user {
+                        width: 100%;
+                        height: auto;
+                        border-radius: 50%;
+                    }
+                }
+                .login {
+                    width: 100px;
+                    .btn-login {
+                        padding: 8% 0;
+                        color: var(--text-color);
+                        width: 100%;
+                        height: auto;
+                        border: none;
+                        border-radius: 0.75rem;
+                        background: var(--secondary-color);
+                        transition: 0.5s ease;
+                    }
+                    .btn-login:hover {
+                        background: var(--secondary-hover-color);
+                        box-shadow: 0 5px 10px var(--placeholder-color);
+                    }
+                }
+            }
+        }
+        .header-content {
+            .title {
+                font-size: 2.7rem;
+                width: fit-content;
+                background-clip: text;
+                background: var(--secondary-color);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .subtitle {
+                font-size: 2.4rem;
+                color: var(--subheading-color);
+            }
+        }
+    }
 }
 
 .suggestion-list {
@@ -327,8 +359,73 @@ body.hide-header .header {
         line-height: 2.6rem;
     }
 
-    .header .subtitle {
-        font-size: 1.6rem;
+    /* Header Reponsive - Viet Duc */
+    .header-title {
+        .header-button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .img-chatbot {
+                width: 15%;
+                height: auto;
+            }
+            .header-button-right {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                .icon {
+                    padding: 1%;
+                    margin-right: 15%;
+                    transition: transform 0.5s ease;
+                }
+                .icon:hover {
+                    background: var(--secondary-hover-color);
+                    border-radius: 50%;
+                    transform: scale(1.2);
+                }
+                .div-img {
+                    width: 10%;
+                    line-height: 0px;
+                    .img-user {
+                        width: 100%;
+                        height: auto;
+                        border-radius: 50%;
+                    }
+                }
+                .login {
+                    width: 75px;
+                    .btn-login {
+                        padding: 5% 0;
+                        color: var(--text-color);
+                        width: 100%;
+                        height: auto;
+                        border: none;
+                        border-radius: 0.75rem;
+                        background: var(--secondary-color);
+                        transition: 0.5s ease;
+                    }
+                    .btn-login:hover {
+                        background: var(--secondary-hover-color);
+                        box-shadow: 0 5px 10px var(--placeholder-color);
+                    }
+                }
+            }
+        }
+        .header-content {
+            margin: 6% 0 -10%;
+            .title {
+                font-size: 2rem;
+                width: fit-content;
+                background-clip: text;
+                background: var(--secondary-color);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .subtitle {
+                font-size: 1.8rem;
+                color: var(--subheading-color);
+            }
+        }
     }
 
     .chat-list .message .avatar {
