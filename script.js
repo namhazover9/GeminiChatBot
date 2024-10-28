@@ -119,7 +119,7 @@ const copyMessage = (copyIcon) => {
     navigator.clipboard.writeText(messageText); // Copy the message text to the clipboard
     copyIcon.innerText = "done"; // Change the icon to a checkmark
     setTimeout(() => copyIcon.innerText = "content_copy", 1000); // Change the icon back to a copy icon after 1 sec
-
+    // Copy the message text to the clipboard
 }
 
 // Handle sending outgoing chat messages
