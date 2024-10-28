@@ -23,7 +23,7 @@
     --subheading-color: #A0A0A0;
     --placeholder-color: #6c6c6c;
     --primary-color: #fff;
-    --secondary-color: #e9eef6;
+    --secondary-color: linear-gradient(180deg, #82CDDD 0%, #FFF799 100%);
     --secondary-hover-color: #dbe1ea;
 }
 
@@ -95,7 +95,8 @@ body.hide-header .header {
 }
 
 .suggestion-list .suggestion:hover {
-    background: var(--secondary-hover-color);
+    opacity: 0.8;
+    /* background: var(--secondary-hover-color); */
 }
 
 .suggestion-list .suggestion .text {
@@ -258,7 +259,7 @@ body.hide-header .header {
 }
 
 .typing-area .typing-input:focus {
-    background: var(--secondary-hover-color);
+    opacity: 0.8;
 }
 
 .typing-area .typing-input::placeholder {
@@ -277,7 +278,8 @@ body.hide-header .header {
 }
 
 .typing-area .icon:hover {
-    background: var(--secondary-hover-color) !important;
+    opacity: 0.8;
+    /* background: var(--secondary-hover-color) !important; */
 }
 
 .typing-area .input-wrapper .icon {
