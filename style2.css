@@ -9,12 +9,12 @@
 
 :root {
     /* Dark mode colors */
-    --text-color: #fff;
+    --text-color: #e3e3e3;
     --subheading-color: #828282;
     --placeholder-color: #a6a6a6;
     --primary-color: #242424;
-    --secondary-color: linear-gradient(180deg, #2F8B9E 0%, #E0DB9B 100%);
-    --secondary-hover-color: linear-gradient(360deg, #2F8B9E 0%, #E0DB9B 100%);
+    --secondary-color: #383838;
+    --secondary-hover-color: #444;
 }
 
 .light_mode {
@@ -23,8 +23,8 @@
     --subheading-color: #A0A0A0;
     --placeholder-color: #6c6c6c;
     --primary-color: #fff;
-    --secondary-color:linear-gradient(180deg, #82CDDD 0%, #FFF799 100%);
-    --secondary-hover-color: linear-gradient(360deg, #82CDDD 0%, #FFF799 100%);
+    --secondary-color: linear-gradient(180deg, #82CDDD 0%, #FFF799 100%);
+    --secondary-hover-color: #dbe1ea;
 }
 
 body {
@@ -63,7 +63,7 @@ body.hide-header .header {
     font-size: 2.7rem;
     width: fit-content;
     background-clip: text;
-    background: linear-gradient(to right, #82CDDD, #FFF799);
+    background: linear-gradient(to right, #4285f4, #d96570);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -95,7 +95,8 @@ body.hide-header .header {
 }
 
 .suggestion-list .suggestion:hover {
-    background: var(--secondary-hover-color);
+    opacity: 0.8;
+    /* background: var(--secondary-hover-color); */
 }
 
 .suggestion-list .suggestion .text {
@@ -111,7 +112,7 @@ body.hide-header .header {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-   
+    background: var(--primary-color);
 }
 
 /* ----------------------------Chat List-------------------------- */
@@ -164,19 +165,6 @@ body.hide-header .header {
     display: none;
 }
 
-.text-container-user {
-    
-    padding: 10px;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(130, 205, 221, 1);
-}
-
-.text-container-bot {
-    
-    padding: 10px;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(255, 247, 153, 1);
-}
 
 .chat-list .message .icon {
     height: 35px;
@@ -217,7 +205,7 @@ body.hide-header .header {
     height: 11px;
     width: 100%;
     border-radius: 0.14rem;
-    background: linear-gradient(to right, #82CDDD, var(--primary-color), #FFF799);
+    background: linear-gradient(to right, #4285f4, var(--primary-color), #4285f4);
     animation: animate 3s linear infinite;
 }
 
@@ -271,7 +259,7 @@ body.hide-header .header {
 }
 
 .typing-area .typing-input:focus {
-    background: var(--secondary-hover-color);
+    opacity: 0.8;
 }
 
 .typing-area .typing-input::placeholder {
@@ -290,7 +278,8 @@ body.hide-header .header {
 }
 
 .typing-area .icon:hover {
-    background: var(--secondary-hover-color) !important;
+    opacity: 0.8;
+    /* background: var(--secondary-hover-color) !important; */
 }
 
 .typing-area .input-wrapper .icon {
