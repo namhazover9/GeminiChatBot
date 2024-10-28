@@ -262,7 +262,7 @@ body.hide-header .header {
 }
 
 .typing-area .typing-input::placeholder {
-    color: var(--placeholder-color);
+    color: white;
 }
 
 .typing-area .icon {
