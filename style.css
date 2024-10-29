@@ -53,15 +53,54 @@ body {
 }
 
 .header {
-    margin-top: 7vh;
+    margin-top: 1vh;
     padding: 1rem;
     /* display: none; */
 }
 
-body.hide-header .header {
+.header-button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-content{
+    margin-top: 2vh;
+}
+
+.header-button-right{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    
+}
+
+.img-chatbot{
+    width: 7em;
+    height: 7em;
+}
+
+.btn-login{
+    background: var(--secondary-color);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #fff;
+    margin-left: 30px;
+}
+
+.btn-login:hover{
+    box-shadow: 0 2px 4px #999;
+    background: var(--secondary-hover-color);
+}
+
+body.hide-header .header-body-content {
     display: none;
     margin-top: 0;
 }
+
+
 
 .header :where(.title, .subtitle) {
     font-weight: 500;
