@@ -1,0 +1,163 @@
+/* From Uiverse.io by reshades */
+
+
+.body {
+    background: green;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.2px);
+    -webkit-backdrop-filter: blur(8.2px);
+    border: 1px solid #1868a966;
+    width: 18em;
+    height: 18em;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.form p {
+    color: #369eff;
+    font-weight: bolder;
+}
+
+.path {
+    fill: #369eff
+}
+
+.svg {
+    filter: blur(20px);
+    z-index: -1;
+    position: absolute;
+    opacity: 50%;
+    animation: anim 3s infinite;
+}
+
+.inp {
+    margin-left: auto;
+    margin-right: auto;
+    white-space: 4px;
+}
+
+.input+.input {
+    margin-left: 0.3em
+}
+
+.input {
+    color: black;
+    height: 2em;
+    width: 2em;
+    float: left;
+    text-align: center;
+    background: #00000000;
+    outline: none;
+    border: 2px #369eff solid;
+    border-radius: 10px;
+    transition: all 0.6s ease;
+}
+
+.input:focus {
+    outline: none;
+    border: 2px #55a471 solid;
+}
+
+.input:not(:placeholder-shown) {
+    opacity: 40%
+}
+
+.form .verify {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #00000000;
+    color: #369eff;
+    width: 8.5em;
+    height: 2.3em;
+    border: #369eff 0.15em solid;
+    border-radius: 11px;
+    transition: all 0.5s ease;
+}
+
+
+
+.form .verify:hover {
+    background-color: #82CDDD;
+    color: white;
+}
+
+@keyframes anim {
+    0% {
+        transform: translateY(-70px);
+    }
+
+    50% {
+        transform: translateY(-19px);
+    }
+
+    100% {
+        transform: translateY(-70px);
+    }
+}
+
+.form .icon {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #369eff;
+    font-size: 24px;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    transition: color 0.3s ease;
+}
+
+
+.form .icon:hover {
+    color: #c82d30;
+}
+
+/* line */
+.logo-divider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+    width: 100%;
+    max-width: 28rem;
+    margin: 0 auto;
+}
+
+.divider-line {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+}
+
+.divider-line::before {
+    content: "";
+    width: 100%;
+    border-top: 1px solid #82CDDD;
+}
+
+.logo-container {
+    position: relative;
+    padding: 0 1rem;
+    background-color: white;
+}
+
+.logo-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
