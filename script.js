@@ -6,7 +6,7 @@ const deleteChatButton = document.querySelector("#delete-chat-button");
 
 let userMessage = null;
 let isResponseGenerating = false;
-
+let conversationHistory = [];
 
 // API configuration
 const API_KEY = "AIzaSyC8e5jD2ccpBnEjLM9oKipA7O2xuMa8MBQ";
@@ -60,19 +60,27 @@ const showTypingEffect = (text, textElement, incomingMessageDiv) => {
 // Fetch response from the API based on user's message
 const generateAPIResponse = async (incomingMessageDiv) => {
     const textElement = incomingMessageDiv.querySelector(".text"); // Get the text element of the incoming message
+    // const userMessage = textElement.innerText;
 
     // Send a POST request to the API with the user's message
     try {
+
+        conversationHistory.push({
+            role: "user",
+            parts: [{ text: userMessage }]
+        });
+        // Push the user's message into conversation history
+        // conversationHistory.push({
+        //     role: "user",
+        //     parts: [{ text: userMessage }]
+        // });
+
         const response = await fetch(API_URL, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
-                contents: [{
-                    role: "user",
-                    parts: [{text: userMessage}]
-                }]
-            })
-
+                contents: conversationHistory,
+            }),
         });
 
         const data = await response.json(); // Parse the JSON response
@@ -80,8 +88,17 @@ const generateAPIResponse = async (incomingMessageDiv) => {
         
         // Get the API response text and remove asterisks from it
         const apiResponse = data?.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '$1'); // Extract the response from the JSON data
+        // conversationHistory.push({
+        //     role: "model",
+        //     parts: [{ text: apiResponse }]
+        // });
         showTypingEffect(apiResponse, textElement, incomingMessageDiv); // Show typing effect for the API response   
 
+        conversationHistory.push({
+            role: "model",
+            parts: [{ text: apiResponse }]
+        });
+        
     } catch (error) {
         isResponseGenerating = false; // Set the response generating state to false
         textElement.innerText = error.message; // Display the error message in the text element
