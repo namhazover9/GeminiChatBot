@@ -62,6 +62,34 @@
         </p>
     </div>
 
+
+    <div class="login-modal" id="login-modal" >
+        <center>
+            <form class="form">
+                <div class="content">
+                    <p align="center">OTP Verification</p>
+                    <div class="inp">
+                        <input placeholder="" type="text" class="input" onfocus="this.value=''" maxlength="1">
+                        <input placeholder="" type="text" class="input" onfocus="this.value=''" maxlength="1">
+                        <input placeholder="" type="text" class="input" onfocus="this.value=''" maxlength="1">
+                        <input placeholder="" type="text" class="input" onfocus="this.value=''" maxlength="1">
+                    </div>
+                    <button class="verify">Verify</button>
+                    <button type="button" class="icon material-symbols-rounded">arrow_back</button>
+                </div>
+            </form>
+        </center>
+        <script>
+            const inputs = document.querySelectorAll('.input');
+            inputs.forEach((input, index) => {
+                input.addEventListener('input', () => {
+                    if (input.value.length > 0 && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                });
+            });
+        </script>
+    </div>
     <script src="script.js"></script>
 </body>
 
