@@ -6,6 +6,7 @@ const deleteChatButton = document.querySelector("#delete-chat-button");
 
 let userMessage = null;
 let isResponseGenerating = false;
+let conversationHistory = [];
 
 // API configuration
 const API_KEY = "AIzaSyC8e5jD2ccpBnEjLM9oKipA7O2xuMa8MBQ";
@@ -14,7 +15,6 @@ const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-
 // Load the local storage data when the page loads
 const loadLocalStorageData = () => {
   const savedChats = localStorage.getItem("savedChats"); // Get the saved chats from the local storage
-  const historyChats = localStorage.getItem("historyChats");
   const isLightMode = localStorage.getItem("themeColor") === "light_mode"; // Getting the local storage themeColor value
 
   // Apply the stored theme to the website
@@ -23,7 +23,6 @@ const loadLocalStorageData = () => {
 
   // Restore the chat list from the local storage
   chatList.innerHTML = savedChats || ""; // Set the chat list to the saved chats or an empty string
-  chatList.innerHTML = historyChats || ""; // Set history chat to save old user's chat and model's chat
 
   document.body.classList.toggle("hide-header", savedChats); // Hide the header if there are saved chats
   chatList.scrollTo(0, chatList.scrollHeight); // Scroll to the bottom of the chat list
@@ -56,53 +55,60 @@ const showTypingEffect = (text, textElement, incomingMessageDiv) => {
       localStorage.setItem("savedChats", chatList.innerHTML); // Save the chat list to the local storage
     }
     chatList.scrollTo(0, chatList.scrollHeight); // Scroll to the bottom of the chat list
-  }, 75); // Set the typing speed
+  }, 20); // Set the typing speed
 };
 
 // Fetch response from the API based on user's message
 const generateAPIResponse = async (incomingMessageDiv) => {
   const textElement = incomingMessageDiv.querySelector(".text"); // Get the text element of the incoming message
 
-  // Send a POST request to the API with the user's message
-  try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [
-          {
+    // Send a POST request to the API with the user's message
+    try {
+
+        // Push the user's message into conversation history
+        conversationHistory.push({
             role: "user",
-            parts: [{ text: userMessage }],
-          },
-        ],
-      }),
-    });
+            parts: [{ text: userMessage }]
+        });
 
-    const data = await response.json(); // Parse the JSON response
-    if (!response.ok) throw new Error(data.error.message); // Throw an error if the response is not ok
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                contents: conversationHistory,
+            }),
+        });
 
-    // Get the API response text and remove asterisks from it
-    const apiResponse = data?.candidates[0].content.parts[0].text.replace(
-      /\*\*(.*?)\*\*/g,
-      "$1"
-    ); // Extract the response from the JSON data
-    showTypingEffect(apiResponse, textElement, incomingMessageDiv); // Show typing effect for the API response
-  } catch (error) {
-    isResponseGenerating = false; // Set the response generating state to false
-    textElement.innerText = error.message; // Display the error message in the text element
-    textElement.classList.add("error"); // Add the "error" class to the text
-  } finally {
-    incomingMessageDiv.classList.remove("loading"); // Remove the "loading" class from the incoming message
-    chatList.scrollTop = chatList.scrollHeight; // Scroll to the bottom of the chat list
-  }
-};
+        const data = await response.json(); // Parse the JSON response
+        if(!response.ok) throw new Error(data.error.message); // Throw an error if the response is not ok
+        
+        // Get the API response text and remove asterisks from it
+        const apiResponse = data?.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '$1'); // Extract the response from the JSON data
+        showTypingEffect(apiResponse, textElement, incomingMessageDiv); // Show typing effect for the API response   
+
+        conversationHistory.push({
+            role: "model",
+            parts: [{ text: apiResponse }]
+        });
+        
+    } catch (error) {
+        isResponseGenerating = false; // Set the response generating state to false
+        textElement.innerText = error.message; // Display the error message in the text element
+        textElement.classList.add("error"); // Add the "error" class to the text
+    } finally {
+        incomingMessageDiv.classList.remove("loading"); // Remove the "loading" class from the incoming message
+        chatList.scrollTop = chatList.scrollHeight; // Scroll to the bottom of the chat list
+    }
+}
 
 // Show a loading animation while waiting for the API response
 const showLoadingAnimation = () => {
   const html = `
         <div class="message-content">
-            <img src="images/gemini.svg" alt="Gemini Image" class="avatar">
-            <p class="text"></p>
+            <img src="images/BigF.png" alt="Gemini Image" class="avatar">
+            <div class="text-container-bot">
+                <p class="text"></p>
+            </div>
             <div class="loading-indicator">
                 <div class="loading-bar"></div>
                 <div class="loading-bar"></div>
@@ -124,6 +130,7 @@ const copyMessage = (copyIcon) => {
   navigator.clipboard.writeText(messageText); // Copy the message text to the clipboard
   copyIcon.innerText = "done"; // Change the icon to a checkmark
   setTimeout(() => (copyIcon.innerText = "content_copy"), 1000); // Change the icon back to a copy icon after 1 sec
+  // Copy the message text to the clipboard
 };
 
 // Handle sending outgoing chat messages
@@ -135,9 +142,12 @@ const handleOutgoingChat = () => {
   isResponseGenerating = true; // Set the response generating state to true
 
   const html = `
-        <div class="message-content">
+        
+        <div class="message-content" >
             <img src="images/nam2.jpg" alt="User Image" class="avatar">
-            <p class="text"></p>
+            <div class="text-container-user">
+                <p class="text"></p>
+            </div>
         </div>`;
 
   const outgoingMessageDiv = createMessageElement(html, "outgoing"); // Create an outgoing message element

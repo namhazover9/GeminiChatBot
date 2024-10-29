@@ -1,0 +1,172 @@
+/* From Uiverse.io by reshades */
+
+
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.2px);
+    -webkit-backdrop-filter: blur(8.2px);
+    border: 1px solid black;
+    width: 18em;
+    height: 20em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.form .title {
+    color: black;
+    font-weight: bolder;
+    font-size: 2em;
+    margin: 0;
+}
+
+.form .text {
+    font-size: 0.9em;
+    color: black;
+    margin: 0;
+    margin-bottom: 2em;
+}
+
+.path {
+    fill: #82CDDD
+}
+
+.svg {
+    filter: blur(20px);
+    z-index: -1;
+    position: absolute;
+    opacity: 50%;
+    animation: anim 3s infinite;
+}
+
+.inp {
+    margin-left: auto;
+    margin-right: auto;
+    white-space: 4px;
+}
+
+.input+.input {
+    margin-left: 0.3em;
+    margin-bottom: 2em;
+}
+
+.input {
+    color: black;
+    height: 3em;
+    width: 3em;
+    float: left;
+    text-align: center;
+    background: #ba050500;
+    outline: none;
+    border: 2px black solid;
+    border-radius: 10px;
+    transition: all 0.6s ease;
+}
+
+.input:focus {
+    outline: none;
+    border: 2px black solid;
+}
+
+.input:not(:placeholder-shown) {
+    opacity: 60%
+}
+
+.form .verify {
+    margin-left: auto;
+    margin-right: auto;
+    background: linear-gradient(to right, #2F8B9E, #E0DB9B);
+    color: #ffff;
+    width: 16em;
+    height: 3em;
+    border: none;
+    /* border: #82CDDD 0.15em solid; */
+    border-radius: 11px;
+    transition: all 0.5s ease;
+}
+
+
+
+.form .verify:hover {
+    background: linear-gradient(to left, #2F8B9E, #E0DB9B);
+    opacity: 0.9;
+}
+
+@keyframes anim {
+    0% {
+        transform: translateY(-70px);
+    }
+
+    50% {
+        transform: translateY(-19px);
+    }
+
+    100% {
+        transform: translateY(-70px);
+    }
+}
+
+.form .icon {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: black;
+    font-size: 24px;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    transition: color 0.3s ease;
+}
+
+
+.form .icon:hover {
+    color: #82CDDD;
+}
+
+/* line */
+.logo-divider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+    width: 100%;
+    max-width: 28rem;
+    margin: 0 auto;
+}
+
+.divider-line {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+}
+
+.divider-line::before {
+    content: "";
+    width: 100%;
+    border-top: 1px solid #82CDDD;
+}
+
+.logo-container {
+    position: relative;
+    padding: 0 1rem;
+    background-color: white;
+}
+
+.logo-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
