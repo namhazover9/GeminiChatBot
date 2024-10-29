@@ -60,7 +60,7 @@ const showTypingEffect = (text, textElement, incomingMessageDiv) => {
 
 // Fetch response from the API based on user's message
 const generateAPIResponse = async (incomingMessageDiv) => {
-    const textElement = incomingMessageDiv.querySelector(".text"); // Get the text element of the incoming message
+  const textElement = incomingMessageDiv.querySelector(".text"); // Get the text element of the incoming message
 
     // Send a POST request to the API with the user's message
     try {
