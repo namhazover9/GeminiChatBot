@@ -1,5 +1,5 @@
 const typingForm = document.querySelector(".typing-form");
-const chatList = document.querySelector(".chat-list");
+const chatList = document.querySelector(".chats");
 const suggestions = document.querySelectorAll(".suggestion-list .suggestion");
 const toggleThemeButton = document.querySelector("#toggle-theme-button");
 const deleteChatButton = document.querySelector("#delete-chat-button");
@@ -39,23 +39,55 @@ const createMessageElement = (content, ...classes) => {
 };
 
 // Show typing effect by displaying words one by one and Save the chat list to the local storage
-const showTypingEffect = (text, textElement, incomingMessageDiv) => {
-  const words = text.split(" "); // Split the text into words
-  let currentWordIndex = 0; // Initialize the current word index
+const showTypingEffect = (rawText, htmlText, messageElement, incomingMessageElement) => {
+  const copyIconElement = incomingMessageElement.querySelector(".icon");
+  copyIconElement.classList.add("hide"); // Initially hide copy button
+
+  const wordsArray = rawText.split(' ');
+  let wordIndex = 0;
 
   const typingInterval = setInterval(() => {
-    // Append each word to the text element with a space
-    textElement.innerText +=
-      (currentWordIndex === 0 ? "" : " ") + words[currentWordIndex++]; // Append the current word to the text element
-    incomingMessageDiv.querySelector(".icon").classList.add("hide"); // Hide the copy icon
-    if (currentWordIndex === words.length) {
-      clearInterval(typingInterval); // Clear the typing interval
-      isResponseGenerating = false; // Set the response generating state to false
-      incomingMessageDiv.querySelector(".icon").classList.remove("hide"); // Show the copy icon
-      localStorage.setItem("savedChats", chatList.innerHTML); // Save the chat list to the local storage
-    }
-    chatList.scrollTo(0, chatList.scrollHeight); // Scroll to the bottom of the chat list
-  }, 20); // Set the typing speed
+      messageElement.innerText += (wordIndex === 0 ? '' : ' ') + wordsArray[wordIndex++];
+      if (wordIndex === wordsArray.length) {
+          clearInterval(typingInterval);
+          isResponseGenerating = false;
+          messageElement.innerHTML = htmlText;
+          hljs.highlightAll();
+          addCopyButtonToCodeBlocks();
+          copyIconElement.classList.remove("hide");
+          localStorage.setItem("savedChats", chatList.innerHTML);
+      }
+  chatList.scrollTo(0, chatList.scrollHeight); // Scroll to the bottom of the chat list
+  }, 20);
+};
+
+const addCopyButtonToCodeBlocks = () => {
+  
+  const codeBlocks = document.querySelectorAll('pre');
+  codeBlocks.forEach((block) => {
+      const codeElement = block.querySelector('code');
+      let language = [...codeElement.classList].find(cls => cls.startsWith('language-'))?.replace('language-', '') || 'Text';
+
+      const languageLabel = document.createElement('div');
+      languageLabel.innerText = language.charAt(0).toUpperCase() + language.slice(1);
+      languageLabel.classList.add('code__language-label');
+      block.appendChild(languageLabel);
+
+      const copyButton = document.createElement('button');
+      copyButton.innerHTML = `<i class='bx bx-copy'></i>`;
+      copyButton.classList.add('code__copy-btn');
+      block.appendChild(copyButton);
+
+      copyButton.addEventListener('click', () => {
+          navigator.clipboard.writeText(codeElement.innerText).then(() => {
+              copyButton.innerHTML = `<i class='bx bx-check'></i>`;
+              setTimeout(() => copyButton.innerHTML = `<i class='bx bx-copy'></i>`, 2000);
+          }).catch(err => {
+              console.error("Copy failed:", err);
+              alert("Unable to copy text!");
+          });
+      });
+  });
 };
 
 // Fetch response from the API based on user's message
@@ -64,7 +96,6 @@ const generateAPIResponse = async (incomingMessageDiv) => {
 
     // Send a POST request to the API with the user's message
     try {
-
         // Push the user's message into conversation history
         conversationHistory.push({
             role: "user",
@@ -83,12 +114,16 @@ const generateAPIResponse = async (incomingMessageDiv) => {
         if(!response.ok) throw new Error(data.error.message); // Throw an error if the response is not ok
         
         // Get the API response text and remove asterisks from it
-        const apiResponse = data?.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '$1'); // Extract the response from the JSON data
-        showTypingEffect(apiResponse, textElement, incomingMessageDiv); // Show typing effect for the API response   
+        const responseText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+        const parsedApiResponse = marked.parse(responseText);
+        const rawApiResponse = responseText;
+
+        showTypingEffect(rawApiResponse, parsedApiResponse, textElement, incomingMessageDiv);
 
         conversationHistory.push({
             role: "model",
-            parts: [{ text: apiResponse }]
+            parts: [{ text: parsedApiResponse }]
         });
         
     } catch (error) {

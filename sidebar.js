@@ -6,7 +6,7 @@ hamBurger.addEventListener("click", function () {
 
 // API
 const typingForm = document.querySelector(".typing-form");
-const chatList = document.querySelector(".chat-list");
+const chatList = document.querySelector(".chats");
 const suggestions = document.querySelectorAll(".suggestion-list .suggestion");
 const toggleThemeButton = document.querySelector("#toggle-theme-button");
 const deleteChatButton = document.querySelector("#delete-chat-button");
