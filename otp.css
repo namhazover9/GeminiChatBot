@@ -26,9 +26,19 @@
     margin-bottom: auto;
 }
 
-.form p {
+.form .title {
     color: #369eff;
     font-weight: bolder;
+    font-size: 2em;
+    margin: 0;
+}
+
+.form .text {
+    font-size: 0.9em;
+    color: #369eff;
+    margin: 0;
+    margin-bottom: 2em;
+    font-style: italic;
 }
 
 .path {
@@ -50,7 +60,8 @@
 }
 
 .input+.input {
-    margin-left: 0.3em
+    margin-left: 0.3em;
+    margin-bottom: 2em;
 }
 
 .input {
