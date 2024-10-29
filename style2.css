@@ -205,7 +205,7 @@ body.hide-header .header {
     height: 11px;
     width: 100%;
     border-radius: 0.14rem;
-    background: linear-gradient(to right, #4285f4, var(--primary-color), #4285f4);
+    background: linear-gradient(to right, #3c85fb, var(--primary-color), #6d9ae2);
     animation: animate 3s linear infinite;
 }
 
