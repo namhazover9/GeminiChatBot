@@ -1,9 +1,6 @@
 /* From Uiverse.io by reshades */
 
 
-.body {
-    background: green;
-}
 
 .form {
     display: flex;
@@ -13,9 +10,10 @@
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8.2px);
     -webkit-backdrop-filter: blur(8.2px);
-    border: 1px solid #1868a966;
+    border: 1px solid black;
     width: 18em;
-    height: 18em;
+    height: 20em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .content {
@@ -27,7 +25,7 @@
 }
 
 .form .title {
-    color: #369eff;
+    color: black;
     font-weight: bolder;
     font-size: 2em;
     margin: 0;
@@ -35,14 +33,13 @@
 
 .form .text {
     font-size: 0.9em;
-    color: #369eff;
+    color: black;
     margin: 0;
     margin-bottom: 2em;
-    font-style: italic;
 }
 
 .path {
-    fill: #369eff
+    fill: #82CDDD
 }
 
 .svg {
@@ -66,34 +63,35 @@
 
 .input {
     color: black;
-    height: 2em;
-    width: 2em;
+    height: 3em;
+    width: 3em;
     float: left;
     text-align: center;
-    background: #00000000;
+    background: #ba050500;
     outline: none;
-    border: 2px #369eff solid;
+    border: 2px black solid;
     border-radius: 10px;
     transition: all 0.6s ease;
 }
 
 .input:focus {
     outline: none;
-    border: 2px #55a471 solid;
+    border: 2px black solid;
 }
 
 .input:not(:placeholder-shown) {
-    opacity: 40%
+    opacity: 60%
 }
 
 .form .verify {
     margin-left: auto;
     margin-right: auto;
-    background-color: #00000000;
-    color: #369eff;
-    width: 8.5em;
-    height: 2.3em;
-    border: #369eff 0.15em solid;
+    background: linear-gradient(to right, #2F8B9E, #E0DB9B);
+    color: #ffff;
+    width: 16em;
+    height: 3em;
+    border: none;
+    /* border: #82CDDD 0.15em solid; */
     border-radius: 11px;
     transition: all 0.5s ease;
 }
@@ -101,8 +99,8 @@
 
 
 .form .verify:hover {
-    background-color: #82CDDD;
-    color: white;
+    background: linear-gradient(to left, #2F8B9E, #E0DB9B);
+    opacity: 0.9;
 }
 
 @keyframes anim {
@@ -123,7 +121,7 @@
     border: none;
     background: none;
     cursor: pointer;
-    color: #369eff;
+    color: black;
     font-size: 24px;
     padding: 0;
     margin-left: auto;
@@ -133,7 +131,7 @@
 
 
 .form .icon:hover {
-    color: #c82d30;
+    color: #82CDDD;
 }
 
 /* line */
