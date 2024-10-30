@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             const data = await response.json();
-            console.log("data: ", data);
             if (data.isAuth) {
                 alert("Logged in successfully!");
                 // Lưu token vào localStorage nếu cần thiết

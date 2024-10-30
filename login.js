@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             const data = await response.json();
-            console.log("data: ", data);
             if (data.success) {
                 alert("OTP sent to your email!");
                 // Store verifyToken for OTP verification step
