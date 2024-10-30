@@ -177,7 +177,7 @@ const handleOutgoingChat = () => {
   isResponseGenerating = true; // Set the response generating state to true
 
   const html = `
-        
+  
         <div class="message-content" >
             <img src="images/nam2.jpg" alt="User Image" class="avatar">
             <div class="text-container-user">

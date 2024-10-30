@@ -46,6 +46,64 @@ body {
     color: var(--secondary-background);
 }
 
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1E1E1E;
+    padding: 10px 20px;
+    color: white;
+}
+
+/* Bên trái của Navbar (icon và title) */
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-title {
+    margin-left: 2.5em;
+    cursor: pointer;
+}
+
+
+/* Slide Bar Toggle Button */
+.slide-bar-toggle {
+    position: fixed;
+    /* top: 10px;
+    left: 10px; */
+    z-index: 1001;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+/* Slide Bar */
+.slide-bar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Hidden by default */
+    width: 250px;
+    height: 100%;
+    background-color: #111;
+    color: white;
+    overflow-x: hidden;
+    transition: 0.5s;
+    z-index: 1000; /* Ensure it overlaps all elements */
+    }
+
+.slide-bar-content {
+    padding: 20px;
+}
+
+/* Slide Bar Active State */
+.slide-bar.active {
+    left: 0;
+}
+
 .header,
 .typing-area {
     color: var(--text-color);
@@ -82,8 +140,8 @@ body {
 }
 
 .img-chatbot{
-    width: 7em;
-    height: 7em;
+    width: 5em;
+    height: 5em;
 }
 
 .btn-login{
@@ -132,7 +190,9 @@ body.hide-header .header-body-content {
     list-style: none;
     display: flex;
     gap: 1.25rem;
+    overflow-x: auto;
     scrollbar-width: none;
+    margin-left: 0 !important;
 }
 
 .suggestion-list .suggestion {
@@ -174,6 +234,9 @@ body.hide-header .header-body-content {
 
 .chats {
     padding: 2rem 1rem 12rem;
+    max-height: 100vh;
+    overflow-y: auto;
+    scrollbar-color: #999 transparent;
 }
 
 .chats .message.incoming {
