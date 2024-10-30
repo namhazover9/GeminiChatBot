@@ -5,13 +5,13 @@
 .form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    border-radius: 16px;
+    padding: 6% 3%;
+    border-radius: 5%;
+    transition: 0.3s;
+    background-color: #ffffffd6;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(8.2px);
-    -webkit-backdrop-filter: blur(8.2px);
     border: 1px solid black;
-    width: 18em;
+    width: 20rem;
     height: 20em;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -136,14 +136,15 @@
 
 /* line */
 .logo-divider-container {
-    position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    height: 100vh;
     justify-content: center;
-    padding: 2rem 0;
-    width: 100%;
-    max-width: 28rem;
-    margin: 0 auto;
+    background-image: url('images/bg_chatbot.jpg');
+    background-size: cover; /* Giúp ảnh phủ toàn bộ phần nền */
+    background-repeat: no-repeat; /* Ngăn không cho ảnh lặp lại */
+    background-position: center; /* Đặt ảnh ở giữa */
 }
 
 .divider-line {
@@ -160,9 +161,10 @@
 }
 
 .logo-container {
-    position: relative;
-    padding: 0 1rem;
-    background-color: white;
+    position: absolute;
+    left: 0; /* Đặt ở sát lề trái */
+    top: 0;
+    margin: 1em;
 }
 
 .logo-image {

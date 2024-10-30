@@ -13,27 +13,27 @@
 <body>
 
     <div class="logo-divider-container">
-        <div class="divider-line"></div>
         <div class="logo-container">
             <img src="./images/BigF.png" alt="Big Four Logo" class="logo-image">
         </div>
-    </div>
-    <center>
-        <form class="form">
-            <div class="content">
-                <p align="center" class="title">OTP Verification</p>
-                <p class="text">Check your mail to receive OTP code</p>
-                <div class="inp">
-                    <input placeholder="" type="text" class="input" onfocus="this.value=''" maxlength="1">
-                    <input placeholder="" type="text" class="input" onfocus="this.value=''" maxlength="1">
-                    <input placeholder="" type="text" class="input" onfocus="this.value=''" maxlength="1">
-                    <input placeholder="" type="text" class="input" onfocus="this.value=''" maxlength="1">
+        <center>
+            <form class="form">
+                <div class="content">
+                    <p align="center" class="title">OTP Verification</p>
+                    <p class="text">Check your mail to receive OTP code</p>
+                    <div class="inp">
+                        <input placeholder="" type="text" class="input" onfocus="this.value=''" maxlength="1">
+                        <input placeholder="" type="text" class="input" onfocus="this.value=''" maxlength="1">
+                        <input placeholder="" type="text" class="input" onfocus="this.value=''" maxlength="1">
+                        <input placeholder="" type="text" class="input" onfocus="this.value=''" maxlength="1">
+                    </div>
+                    <button class="verify">Verify</button>
+                    <button type="button" class="icon material-symbols-rounded">arrow_back</button>
                 </div>
-                <button class="verify">Verify</button>
-                <button type="button" class="icon material-symbols-rounded">arrow_back</button>
-            </div>
-        </form>
-    </center>
+            </form>
+        </center>   
+    </div>
+    
     <script>
         const inputs = document.querySelectorAll('.input');
         inputs.forEach((input, index) => {
