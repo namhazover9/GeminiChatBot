@@ -13,6 +13,33 @@ let conversationHistory = [];
 const API_KEY = "AIzaSyC8e5jD2ccpBnEjLM9oKipA7O2xuMa8MBQ";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
 
+document.addEventListener("DOMContentLoaded", () => {
+  const loginBtn = document.getElementById("btn-login");
+  const avatarUrl = localStorage.getItem("avatarUrl"); // Lấy URL avatar từ localStorage
+
+  if (avatarUrl) {
+      // Nếu đã đăng nhập, hiển thị avatar
+      loginBtn.innerHTML = `<img src="${avatarUrl}" alt="Avatar" class="avatar-icon">`;
+  } else {
+      // Nếu chưa đăng nhập, hiển thị nút "Login"
+      loginBtn.innerHTML = `<button class="btn-login" onclick="location.href='login.html'">Login</button>`;
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const titleHello = document.getElementById("title");
+  const helloName = localStorage.getItem("helloName"); // Lấy URL avatar từ localStorage
+
+  if (helloName) {
+      // Nếu đã đăng nhập, hiển thị avatar
+      titleHello.innerHTML = `<h2 class="title">${helloName}</h2>`;
+  } else {
+      // Nếu chưa đăng nhập, hiển thị nút "Login"
+      titleHello.innerHTML = `<h2 class="title">Hello there,</h2>`;
+  }
+});
+
+
 // Load the local storage data when the page loads
 const loadLocalStorageData = () => {
   const savedChats = localStorage.getItem("savedChats"); // Get the saved chats from the local storage
@@ -207,20 +234,27 @@ const copyMessage = (copyIcon) => {
 };
 
 // Handle sending outgoing chat messages
+// Handle sending outgoing chat messages
 const handleOutgoingChat = () => {
   userMessage =
-    typingForm.querySelector(".typing-input").value.trim() || userMessage;
+      typingForm.querySelector(".typing-input").value.trim() || userMessage;
   if (!userMessage || isResponseGenerating) return; // Exit if the user message is empty
 
   isResponseGenerating = true; // Set the response generating state to true
 
-  const html = `     
-        <div class="message-content" >
-            <img src="images/nam2.jpg" alt="User Image" class="avatar">
-            <div class="text-container-user">
-                <p class="text"></p>
-            </div>
-        </div>`;
+  // Lấy URL avatar từ localStorage
+  const avatarUrl = localStorage.getItem("avatarUrl");
+
+  // Kiểm tra xem người dùng đã đăng nhập hay chưa
+  const userImage = avatarUrl ? avatarUrl : "images/user.png"; // Nếu đã đăng nhập, dùng avatar; nếu không, dùng user.png
+
+  const html = `
+      <div class="message-content">
+          <img src="${userImage}" alt="User Image" class="avatar">
+          <div class="text-container-user">
+              <p class="text"></p>
+          </div>
+      </div>`;
 
   const outgoingMessageDiv = createMessageElement(html, "outgoing"); // Create an outgoing message element
   outgoingMessageDiv.querySelector(".text").innerText = userMessage; // Set the user message to the text element
@@ -232,6 +266,7 @@ const handleOutgoingChat = () => {
   document.body.classList.add("hide-header"); // Hide the header once chat starts
   setTimeout(showLoadingAnimation, 500);
 };
+
 
 // Set userMessage and handle outgoing chat when a suggestion is clicked
 suggestions.forEach((suggestion) => {
