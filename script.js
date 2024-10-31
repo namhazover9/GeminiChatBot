@@ -3,6 +3,7 @@ const chatList = document.querySelector(".chats");
 const suggestions = document.querySelectorAll(".suggestion-list .suggestion");
 const toggleThemeButton = document.querySelector("#toggle-theme-button");
 const deleteChatButton = document.querySelector("#delete-chat-button");
+const newChatButton = document.querySelector("#new-chat-btn");
 
 let userMessage = null;
 let isResponseGenerating = false;
@@ -56,6 +57,43 @@ const loadLocalStorageData = () => {
 };
 
 loadLocalStorageData(); // Load the local storage data when the page loads
+
+
+newChatButton.addEventListener("click", async () => {
+  try {
+    // Gửi request POST tới backend để tạo một chat mới
+    const response = await fetch("https://chatbotdevplus-3.onrender.com/api/chat/new", { // Sửa lại URL theo backend của bạn
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // Thêm token nếu cần (nếu sử dụng xác thực)
+        'token': `Bearer ${localStorage.getItem('token')}`
+        // Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({}) // Nếu cần thêm dữ liệu vào request, thêm tại đây
+    });
+    console.log(localStorage.getItem('token'));
+
+    // Kiểm tra phản hồi từ server
+    if (!response.ok) {
+      throw new Error("Failed to create chat");
+    }
+
+    const newChat = await response.json();
+    console.log("Chat mới đã tạo:", newChat);
+
+    // Thêm chat mới vào danh sách chats
+    const newChatElement = createMessageElement(`<p>Chat ID: ${newChat._id}</p>`, "outgoing");
+    chatList.appendChild(newChatElement);
+    chatList.scrollTo(0, chatList.scrollHeight);
+    localStorage.removeItem("savedChats"); // Remove the saved chats from the local storage
+      loadLocalStorageData();
+  } catch (error) {
+    console.error("Error creating chat:", error);
+  }
+});
+
+
 
 // Create a message element and return it
 const createMessageElement = (content, ...classes) => {
