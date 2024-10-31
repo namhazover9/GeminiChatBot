@@ -107,6 +107,32 @@ newChatButton.addEventListener("click", () => {
   }
 });
 
+const logout = () => {
+  // Hiển thị hộp thoại xác nhận
+  const confirmLogout = confirm("Are you sure you want to log out?");
+  
+  if (confirmLogout) {
+      // Xóa các dữ liệu liên quan đến trạng thái đăng nhập
+      localStorage.removeItem('token');
+      localStorage.removeItem('avatarUrl');
+      localStorage.removeItem('helloName');
+      localStorage.removeItem('savedChats');
+
+      // Cập nhật giao diện đăng nhập
+      const loginBtn = document.getElementById("btn-login");
+      const titleHello = document.getElementById("title");
+      loginBtn.innerHTML = `<button class="btn-login" onclick="location.href='login.html'">Login</button>`;
+      titleHello.innerHTML = `<h2 class="title">Hello there,</h2>`;
+
+      // Tải lại trang
+      location.reload();
+  }
+};
+
+// Gọi hàm logout khi người dùng nhấn nút đăng xuất
+document.getElementById("btn-logout").addEventListener("click", logout);
+  
+
 
 
 // Create a message element and return it
