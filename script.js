@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
 // Load the local storage data when the page loads
 const loadLocalStorageData = () => {
   const savedChats = localStorage.getItem("savedChats"); // Get the saved chats from the local storage
@@ -58,18 +57,20 @@ const loadLocalStorageData = () => {
 
 loadLocalStorageData(); // Load the local storage data when the page loads
 
-
 // Hàm tạo chat mới
 const createNewChat = async () => {
   try {
-    const response = await fetch("https://chatbotdevplus-3.onrender.com/api/chat/new", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        'token': `Bearer ${localStorage.getItem('token')}`
-      },
-      body: JSON.stringify({})
-    });
+    const response = await fetch(
+      "https://chatbotdevplus-3.onrender.com/api/chat/new",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({}),
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to create chat");
@@ -79,13 +80,15 @@ const createNewChat = async () => {
     console.log("Chat mới đã tạo:", newChat);
 
     // Thêm chat mới vào danh sách
-    const newChatElement = createMessageElement(`<p>Chat ID: ${newChat._id}</p>`, "outgoing");
+    const newChatElement = createMessageElement(
+      `<p>Chat ID: ${newChat._id}</p>`,
+      "outgoing"
+    );
     idChat = newChat._id;
     chatList.appendChild(newChatElement);
     chatList.scrollTo(0, chatList.scrollHeight);
     localStorage.removeItem("savedChats");
     loadLocalStorageData();
-
   } catch (error) {
     console.error("Error creating chat:", error);
   }
@@ -93,7 +96,7 @@ const createNewChat = async () => {
 
 // Khi login thành công, gọi hàm tạo chat
 document.addEventListener("DOMContentLoaded", () => {
-  const token = localStorage.getItem('token'); // Giả sử bạn đã lưu token sau khi login
+  const token = localStorage.getItem("token"); // Giả sử bạn đã lưu token sau khi login
   if (token) {
     createNewChat();
   }
@@ -107,16 +110,30 @@ newChatButton.addEventListener("click", () => {
   }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutBtn = document.getElementById("btn-logout");
+  const token = localStorage.getItem("token"); // Kiểm tra xem có token đăng nhập không
+
+  if (!token) {
+    // Nếu chưa đăng nhập, ẩn nút logout
+    logoutBtn.style.display = "none";
+  } else {
+    // Nếu đã đăng nhập, hiển thị nút logout
+    logoutBtn.style.display = "block";
+  }
+});
+
+
 const logout = () => {
   // Hiển thị hộp thoại xác nhận
   const confirmLogout = confirm("Are you sure you want to log out?");
 
   if (confirmLogout) {
     // Xóa các dữ liệu liên quan đến trạng thái đăng nhập
-    localStorage.removeItem('token');
-    localStorage.removeItem('avatarUrl');
-    localStorage.removeItem('helloName');
-    localStorage.removeItem('savedChats');
+    localStorage.removeItem("token");
+    localStorage.removeItem("avatarUrl");
+    localStorage.removeItem("helloName");
+    localStorage.removeItem("savedChats");
 
     // Cập nhật giao diện đăng nhập
     const loginBtn = document.getElementById("btn-login");
@@ -132,9 +149,6 @@ const logout = () => {
 // Gọi hàm logout khi người dùng nhấn nút đăng xuất
 document.getElementById("btn-logout").addEventListener("click", logout);
 
-
-
-
 // Create a message element and return it
 const createMessageElement = (content, ...classes) => {
   const div = document.createElement("div"); // Create a div element
@@ -144,14 +158,20 @@ const createMessageElement = (content, ...classes) => {
 };
 
 // Show typing effect by displaying words one by one and Save the chat list to the local storage
-const showTypingEffect = async (rawText, htmlText, messageElement, incomingMessageElement) => {
+const showTypingEffect = async (
+  rawText,
+  htmlText,
+  messageElement,
+  incomingMessageElement
+) => {
   const copyIconElement = incomingMessageElement.querySelector(".icon");
   copyIconElement.classList.add("hide"); // Initially hide copy button
-  const wordsArray = rawText.split(' ');
+  const wordsArray = rawText.split(" ");
   let wordIndex = 0;
   while (wordIndex < wordsArray.length) {
-    messageElement.innerText += (wordIndex === 0 ? '' : ' ') + wordsArray[wordIndex++];
-    await new Promise(resolve => setTimeout(resolve, 20)); // Thay setInterval bằng await setTimeout
+    messageElement.innerText +=
+      (wordIndex === 0 ? "" : " ") + wordsArray[wordIndex++];
+    await new Promise((resolve) => setTimeout(resolve, 20)); // Thay setInterval bằng await setTimeout
     chatList.scrollTo(0, chatList.scrollHeight); // Scroll to the bottom of the chat list
   }
   isResponseGenerating = false;
@@ -163,50 +183,63 @@ const showTypingEffect = async (rawText, htmlText, messageElement, incomingMessa
   let chat = localStorage.getItem("savedChats");
 
   try {
-    const response = await fetch(`https://chatbotdevplus-3.onrender.com/api/chat/${idChat}`, { // Sửa lại URL theo backend của bạn
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        'token': `Bearer ${localStorage.getItem('token')}`
-      },
-      body: JSON.stringify({
-        "message": chat
-      })
-    });
+    const response = await fetch(
+      `https://chatbotdevplus-3.onrender.com/api/chat/${idChat}`,
+      {
+        // Sửa lại URL theo backend của bạn
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          token: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          message: chat,
+        }),
+      }
+    );
     if (!response.ok) {
       throw new Error("Failed to create chat");
     }
   } catch (error) {
     console.error("Error creating chat:", error);
   }
+  listHistoryChat();
 };
 
-
 const addCopyButtonToCodeBlocks = () => {
-
-  const codeBlocks = document.querySelectorAll('pre');
+  const codeBlocks = document.querySelectorAll("pre");
   codeBlocks.forEach((block) => {
-    const codeElement = block.querySelector('code');
-    let language = [...codeElement.classList].find(cls => cls.startsWith('language-'))?.replace('language-', '') || 'Text';
+    const codeElement = block.querySelector("code");
+    let language =
+      [...codeElement.classList]
+        .find((cls) => cls.startsWith("language-"))
+        ?.replace("language-", "") || "Text";
 
-    const languageLabel = document.createElement('div');
-    languageLabel.innerText = language.charAt(0).toUpperCase() + language.slice(1);
-    languageLabel.classList.add('code__language-label');
+    const languageLabel = document.createElement("div");
+    languageLabel.innerText =
+      language.charAt(0).toUpperCase() + language.slice(1);
+    languageLabel.classList.add("code__language-label");
     block.appendChild(languageLabel);
 
-    const copyButton = document.createElement('button');
+    const copyButton = document.createElement("button");
     copyButton.innerHTML = `<i class='bx bx-copy'></i>`;
-    copyButton.classList.add('code__copy-btn');
+    copyButton.classList.add("code__copy-btn");
     block.appendChild(copyButton);
 
-    copyButton.addEventListener('click', () => {
-      navigator.clipboard.writeText(codeElement.innerText).then(() => {
-        copyButton.innerHTML = `<i class='bx bx-check'></i>`;
-        setTimeout(() => copyButton.innerHTML = `<i class='bx bx-copy'></i>`, 2000);
-      }).catch(err => {
-        console.error("Copy failed:", err);
-        alert("Unable to copy text!");
-      });
+    copyButton.addEventListener("click", () => {
+      navigator.clipboard
+        .writeText(codeElement.innerText)
+        .then(() => {
+          copyButton.innerHTML = `<i class='bx bx-check'></i>`;
+          setTimeout(
+            () => (copyButton.innerHTML = `<i class='bx bx-copy'></i>`),
+            2000
+          );
+        })
+        .catch((err) => {
+          console.error("Copy failed:", err);
+          alert("Unable to copy text!");
+        });
     });
   });
 };
@@ -220,7 +253,7 @@ const generateAPIResponse = async (incomingMessageDiv) => {
     // Push the user's message into conversation history
     conversationHistory.push({
       role: "user",
-      parts: [{ text: userMessage }]
+      parts: [{ text: userMessage }],
     });
 
     const response = await fetch(API_URL, {
@@ -240,13 +273,17 @@ const generateAPIResponse = async (incomingMessageDiv) => {
     const parsedApiResponse = marked.parse(responseText);
     const rawApiResponse = responseText;
 
-    showTypingEffect(rawApiResponse, parsedApiResponse, textElement, incomingMessageDiv);
+    showTypingEffect(
+      rawApiResponse,
+      parsedApiResponse,
+      textElement,
+      incomingMessageDiv
+    );
 
     conversationHistory.push({
       role: "model",
-      parts: [{ text: parsedApiResponse }]
+      parts: [{ text: parsedApiResponse }],
     });
-
   } catch (error) {
     isResponseGenerating = false; // Set the response generating state to false
     textElement.innerText = error.message; // Display the error message in the text element
@@ -255,7 +292,7 @@ const generateAPIResponse = async (incomingMessageDiv) => {
     incomingMessageDiv.classList.remove("loading"); // Remove the "loading" class from the incoming message
     chatList.scrollTop = chatList.scrollHeight; // Scroll to the bottom of the chat list
   }
-}
+};
 
 // Show a loading animation while waiting for the API response
 const showLoadingAnimation = () => {
@@ -323,7 +360,6 @@ const handleOutgoingChat = () => {
   setTimeout(showLoadingAnimation, 500);
 };
 
-
 // Set userMessage and handle outgoing chat when a suggestion is clicked
 suggestions.forEach((suggestion) => {
   suggestion.addEventListener("click", () => {
@@ -357,13 +393,16 @@ typingForm.addEventListener("submit", (e) => {
 // History Chat
 const listHistoryChat = async () => {
   try {
-    const response = await fetch("https://chatbotdevplus-3.onrender.com/api/chat/all", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        token: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const response = await fetch(
+      "https://chatbotdevplus-3.onrender.com/api/chat/all",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          token: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to fetch chat history");
@@ -373,7 +412,7 @@ const listHistoryChat = async () => {
     const chatContainer = document.querySelector(".history-chat");
 
     let listItemsHTML = '<ul class="message-list">';
-    listItemsHTML += `<p class="title-his-chat">History Chat</p>`
+    listItemsHTML += `<p class="title-his-chat">History Chat</p>`;
     jsonRes.forEach((chat) => {
       if (chat.Message && chat.Message.trim() !== "") {
         listItemsHTML += `<li class="message-item" onclick="detailsChat('${chat._id}')" data-chat-id="${chat._id}">
@@ -396,25 +435,35 @@ const listHistoryChat = async () => {
         const chatId = chatItem.getAttribute("data-chat-id");
 
         // Hiển thị hộp thoại xác nhận
-        const confirmDelete = confirm("Are you sure you want to delete this chat?");
+        const confirmDelete = confirm(
+          "Are you sure you want to delete this chat?"
+        );
         if (!confirmDelete) return;
 
         // Gửi yêu cầu xóa đến API
         try {
-          const deleteResponse = await fetch(`https://chatbotdevplus-3.onrender.com/api/chat/${chatId}`, {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              token: `Bearer ${localStorage.getItem("token")}`,
-            },
-          });
-
+          const deleteResponse = await fetch(
+            `https://chatbotdevplus-3.onrender.com/api/chat/${chatId}`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                token: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          );
+          if(idChat == chatId){
+            localStorage.removeItem("savedChats");
+            loadLocalStorageData();
+            createNewChat();
+          }
           if (!deleteResponse.ok) {
             throw new Error("Failed to delete chat");
           }
 
           // Xóa phần tử chat khỏi DOM sau khi xóa thành công
           chatItem.remove();
+          
         } catch (error) {
           console.error("Error deleting chat:", error);
         }
@@ -435,8 +484,8 @@ const detailsChat = async (id) => {
       {
         method: "GET",
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       }
     );
 
@@ -449,7 +498,7 @@ const detailsChat = async (id) => {
     console.log(jsonRes.Message);
 
     console.log(localStorage.getItem("savedChats"));
-    loadLocalStorageData()
+    loadLocalStorageData();
 
     // console.log("message:", jsonRes); // Kiểm tra phản hồi từ API
     // jsonRes.forEach((chat) => {
@@ -457,8 +506,7 @@ const detailsChat = async (id) => {
     //     localStorage.setItem("savedChats", chat.message);
     //   }
     // });
-
   } catch (error) {
     console.error("Error fetching chat details:", error); // Thêm thông báo lỗi
   }
-}
+};
