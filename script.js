@@ -59,22 +59,18 @@ const loadLocalStorageData = () => {
 loadLocalStorageData(); // Load the local storage data when the page loads
 
 
-newChatButton.addEventListener("click", async () => {
+// Hàm tạo chat mới
+const createNewChat = async () => {
   try {
-    // Gửi request POST tới backend để tạo một chat mới
-    const response = await fetch("https://chatbotdevplus-3.onrender.com/api/chat/new", { // Sửa lại URL theo backend của bạn
+    const response = await fetch("https://chatbotdevplus-3.onrender.com/api/chat/new", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // Thêm token nếu cần (nếu sử dụng xác thực)
         'token': `Bearer ${localStorage.getItem('token')}`
-        // Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify({}) // Nếu cần thêm dữ liệu vào request, thêm tại đây
+      body: JSON.stringify({})
     });
-    console.log(localStorage.getItem('token'));
 
-    // Kiểm tra phản hồi từ server
     if (!response.ok) {
       throw new Error("Failed to create chat");
     }
@@ -82,17 +78,28 @@ newChatButton.addEventListener("click", async () => {
     const newChat = await response.json();
     console.log("Chat mới đã tạo:", newChat);
 
-    // Thêm chat mới vào danh sách chats
+    // Thêm chat mới vào danh sách
     const newChatElement = createMessageElement(`<p>Chat ID: ${newChat._id}</p>`, "outgoing");
     idChat = newChat._id;
     chatList.appendChild(newChatElement);
     chatList.scrollTo(0, chatList.scrollHeight);
-    localStorage.removeItem("savedChats"); // Remove the saved chats from the local storage
-      loadLocalStorageData();
+    localStorage.removeItem("savedChats");
+    loadLocalStorageData();
+
   } catch (error) {
     console.error("Error creating chat:", error);
   }
+};
+
+// Khi login thành công, gọi hàm tạo chat
+document.addEventListener("DOMContentLoaded", () => {
+  const token = localStorage.getItem('token'); // Giả sử bạn đã lưu token sau khi login
+  if (token) {
+    createNewChat();
+  }
 });
+
+newChatButton.addEventListener("click", createNewChat);
 
 
 
