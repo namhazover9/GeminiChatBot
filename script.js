@@ -99,7 +99,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-newChatButton.addEventListener("click", createNewChat);
+newChatButton.addEventListener("click", () => {
+  if(localStorage.getItem("savedChats") == null){
+    console.log("Chat empty!");
+  }else{
+    createNewChat();
+  }
+});
 
 
 
