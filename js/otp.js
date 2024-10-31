@@ -30,9 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("Logged in successfully!");
                 // Lưu token vào localStorage nếu cần thiết
                 localStorage.setItem("token", data.token);
-                localStorage.setItem("avatarUrl", "images/profile.png"); // Giả sử abc.jpg là ảnh avatar
+                localStorage.setItem("avatarUrl", "/images/profile.png"); // Giả sử abc.jpg là ảnh avatar
                 localStorage.setItem("helloName", "Hello Nam Le,"); // Giả sử abc.jpg là ảnh avatar
-                window.location.href = "index.html"; // Điều hướng đến trang home
+                window.location.href = "/html/index.html"; // Điều hướng đến trang home
             } else {
                 alert(data.message);
             }

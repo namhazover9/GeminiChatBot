@@ -42,7 +42,7 @@ body {
     align-items: center;
     height: 100vh;
     justify-content: center;
-    background-image: url('images/bg_chatbot.jpg');
+    background-image: url('/images/bg_chatbot.jpg');
     background-size: cover; /* Giúp ảnh phủ toàn bộ phần nền */
     background-repeat: no-repeat; /* Ngăn không cho ảnh lặp lại */
     background-position: center; /* Đặt ảnh ở giữa */
