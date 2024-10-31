@@ -18,11 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const avatarUrl = localStorage.getItem("avatarUrl"); // Lấy URL avatar từ localStorage
 
   if (avatarUrl) {
-      // Nếu đã đăng nhập, hiển thị avatar
-      loginBtn.innerHTML = `<img src="${avatarUrl}" alt="Avatar" class="avatar-icon">`;
+    // Nếu đã đăng nhập, hiển thị avatar
+    loginBtn.innerHTML = `<img src="${avatarUrl}" alt="Avatar" class="avatar-icon">`;
   } else {
-      // Nếu chưa đăng nhập, hiển thị nút "Login"
-      loginBtn.innerHTML = `<button class="btn-login" onclick="location.href='login.html'">Login</button>`;
+    // Nếu chưa đăng nhập, hiển thị nút "Login"
+    loginBtn.innerHTML = `<button class="btn-login" onclick="location.href='login.html'">Login</button>`;
   }
 });
 
@@ -31,11 +31,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const helloName = localStorage.getItem("helloName"); // Lấy URL avatar từ localStorage
 
   if (helloName) {
-      // Nếu đã đăng nhập, hiển thị avatar
-      titleHello.innerHTML = `<h2 class="title">${helloName}</h2>`;
+    // Nếu đã đăng nhập, hiển thị avatar
+    titleHello.innerHTML = `<h2 class="title">${helloName}</h2>`;
   } else {
-      // Nếu chưa đăng nhập, hiển thị nút "Login"
-      titleHello.innerHTML = `<h2 class="title">Hello there,</h2>`;
+    // Nếu chưa đăng nhập, hiển thị nút "Login"
+    titleHello.innerHTML = `<h2 class="title">Hello there,</h2>`;
   }
 });
 
@@ -100,9 +100,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 newChatButton.addEventListener("click", () => {
-  if(localStorage.getItem("savedChats") == null){
+  if (localStorage.getItem("savedChats") == null) {
     console.log("Chat empty!");
-  }else{
+  } else {
     createNewChat();
   }
 });
@@ -110,28 +110,28 @@ newChatButton.addEventListener("click", () => {
 const logout = () => {
   // Hiển thị hộp thoại xác nhận
   const confirmLogout = confirm("Are you sure you want to log out?");
-  
+
   if (confirmLogout) {
-      // Xóa các dữ liệu liên quan đến trạng thái đăng nhập
-      localStorage.removeItem('token');
-      localStorage.removeItem('avatarUrl');
-      localStorage.removeItem('helloName');
-      localStorage.removeItem('savedChats');
+    // Xóa các dữ liệu liên quan đến trạng thái đăng nhập
+    localStorage.removeItem('token');
+    localStorage.removeItem('avatarUrl');
+    localStorage.removeItem('helloName');
+    localStorage.removeItem('savedChats');
 
-      // Cập nhật giao diện đăng nhập
-      const loginBtn = document.getElementById("btn-login");
-      const titleHello = document.getElementById("title");
-      loginBtn.innerHTML = `<button class="btn-login" onclick="location.href='login.html'">Login</button>`;
-      titleHello.innerHTML = `<h2 class="title">Hello there,</h2>`;
+    // Cập nhật giao diện đăng nhập
+    const loginBtn = document.getElementById("btn-login");
+    const titleHello = document.getElementById("title");
+    loginBtn.innerHTML = `<button class="btn-login" onclick="location.href='login.html'">Login</button>`;
+    titleHello.innerHTML = `<h2 class="title">Hello there,</h2>`;
 
-      // Tải lại trang
-      location.reload();
+    // Tải lại trang
+    location.reload();
   }
 };
 
 // Gọi hàm logout khi người dùng nhấn nút đăng xuất
 document.getElementById("btn-logout").addEventListener("click", logout);
-  
+
 
 
 
@@ -171,7 +171,7 @@ const showTypingEffect = async (rawText, htmlText, messageElement, incomingMessa
       },
       body: JSON.stringify({
         "message": chat
-      }) 
+      })
     });
     if (!response.ok) {
       throw new Error("Failed to create chat");
@@ -183,31 +183,31 @@ const showTypingEffect = async (rawText, htmlText, messageElement, incomingMessa
 
 
 const addCopyButtonToCodeBlocks = () => {
-  
+
   const codeBlocks = document.querySelectorAll('pre');
   codeBlocks.forEach((block) => {
-      const codeElement = block.querySelector('code');
-      let language = [...codeElement.classList].find(cls => cls.startsWith('language-'))?.replace('language-', '') || 'Text';
+    const codeElement = block.querySelector('code');
+    let language = [...codeElement.classList].find(cls => cls.startsWith('language-'))?.replace('language-', '') || 'Text';
 
-      const languageLabel = document.createElement('div');
-      languageLabel.innerText = language.charAt(0).toUpperCase() + language.slice(1);
-      languageLabel.classList.add('code__language-label');
-      block.appendChild(languageLabel);
+    const languageLabel = document.createElement('div');
+    languageLabel.innerText = language.charAt(0).toUpperCase() + language.slice(1);
+    languageLabel.classList.add('code__language-label');
+    block.appendChild(languageLabel);
 
-      const copyButton = document.createElement('button');
-      copyButton.innerHTML = `<i class='bx bx-copy'></i>`;
-      copyButton.classList.add('code__copy-btn');
-      block.appendChild(copyButton);
+    const copyButton = document.createElement('button');
+    copyButton.innerHTML = `<i class='bx bx-copy'></i>`;
+    copyButton.classList.add('code__copy-btn');
+    block.appendChild(copyButton);
 
-      copyButton.addEventListener('click', () => {
-          navigator.clipboard.writeText(codeElement.innerText).then(() => {
-              copyButton.innerHTML = `<i class='bx bx-check'></i>`;
-              setTimeout(() => copyButton.innerHTML = `<i class='bx bx-copy'></i>`, 2000);
-          }).catch(err => {
-              console.error("Copy failed:", err);
-              alert("Unable to copy text!");
-          });
+    copyButton.addEventListener('click', () => {
+      navigator.clipboard.writeText(codeElement.innerText).then(() => {
+        copyButton.innerHTML = `<i class='bx bx-check'></i>`;
+        setTimeout(() => copyButton.innerHTML = `<i class='bx bx-copy'></i>`, 2000);
+      }).catch(err => {
+        console.error("Copy failed:", err);
+        alert("Unable to copy text!");
       });
+    });
   });
 };
 
@@ -215,46 +215,46 @@ const addCopyButtonToCodeBlocks = () => {
 const generateAPIResponse = async (incomingMessageDiv) => {
   const textElement = incomingMessageDiv.querySelector(".text"); // Get the text element of the incoming message
 
-    // Send a POST request to the API with the user's message
-    try {
-        // Push the user's message into conversation history
-        conversationHistory.push({
-            role: "user",
-            parts: [{ text: userMessage }]
-        });
+  // Send a POST request to the API with the user's message
+  try {
+    // Push the user's message into conversation history
+    conversationHistory.push({
+      role: "user",
+      parts: [{ text: userMessage }]
+    });
 
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                contents: conversationHistory,
-            }),
-        });
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: conversationHistory,
+      }),
+    });
 
-        const data = await response.json(); // Parse the JSON response
-        if(!response.ok) throw new Error(data.error.message); // Throw an error if the response is not ok
-        
-        // Get the API response text and remove asterisks from it
-        const responseText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    const data = await response.json(); // Parse the JSON response
+    if (!response.ok) throw new Error(data.error.message); // Throw an error if the response is not ok
 
-        const parsedApiResponse = marked.parse(responseText);
-        const rawApiResponse = responseText;
+    // Get the API response text and remove asterisks from it
+    const responseText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
-        showTypingEffect(rawApiResponse, parsedApiResponse, textElement, incomingMessageDiv);
+    const parsedApiResponse = marked.parse(responseText);
+    const rawApiResponse = responseText;
 
-        conversationHistory.push({
-            role: "model",
-            parts: [{ text: parsedApiResponse }]
-        });
-        
-    } catch (error) {
-        isResponseGenerating = false; // Set the response generating state to false
-        textElement.innerText = error.message; // Display the error message in the text element
-        textElement.classList.add("error"); // Add the "error" class to the text
-    } finally {
-        incomingMessageDiv.classList.remove("loading"); // Remove the "loading" class from the incoming message
-        chatList.scrollTop = chatList.scrollHeight; // Scroll to the bottom of the chat list
-    }
+    showTypingEffect(rawApiResponse, parsedApiResponse, textElement, incomingMessageDiv);
+
+    conversationHistory.push({
+      role: "model",
+      parts: [{ text: parsedApiResponse }]
+    });
+
+  } catch (error) {
+    isResponseGenerating = false; // Set the response generating state to false
+    textElement.innerText = error.message; // Display the error message in the text element
+    textElement.classList.add("error"); // Add the "error" class to the text
+  } finally {
+    incomingMessageDiv.classList.remove("loading"); // Remove the "loading" class from the incoming message
+    chatList.scrollTop = chatList.scrollHeight; // Scroll to the bottom of the chat list
+  }
 }
 
 // Show a loading animation while waiting for the API response
@@ -293,7 +293,7 @@ const copyMessage = (copyIcon) => {
 // Handle sending outgoing chat messages
 const handleOutgoingChat = () => {
   userMessage =
-      typingForm.querySelector(".typing-input").value.trim() || userMessage;
+    typingForm.querySelector(".typing-input").value.trim() || userMessage;
   if (!userMessage || isResponseGenerating) return; // Exit if the user message is empty
 
   isResponseGenerating = true; // Set the response generating state to true
@@ -376,9 +376,10 @@ const listHistoryChat = async () => {
     const chatContainer = document.querySelector(".history-chat");
 
     let listItemsHTML = '<ul class="message-list">';
+    listItemsHTML += `<p class="title-his-chat">History Chat</p>`
     jsonRes.forEach((chat) => {
       if (chat.Message && chat.Message.trim() !== "") {
-        listItemsHTML += `<li class="message-item">${chat.title} <span class="material-symbols-rounded">delete</span></li>`;
+        listItemsHTML += `<li class="message-item" onclick="detailsChat('${chat._id}')"><span class="message-title">${chat.title}</span> <span class="material-symbols-rounded">delete</span></li>`;
       }
     });
     listItemsHTML += "</ul>";
@@ -388,3 +389,41 @@ const listHistoryChat = async () => {
     console.error("Error fetching chat history:", error);
   }
 };
+
+// get details chat
+
+const detailsChat = async (id) => {
+  idChat = id;
+  try {
+    const response = await fetch(
+      `https://chatbotdevplus-3.onrender.com/api/chat/detailChat/${id}`, // URL không có ký tự lạ
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch chat history");
+    }
+
+    const jsonRes = await response.json();
+    localStorage.setItem("savedChats", jsonRes.Message);
+    console.log(jsonRes.Message);
+
+    console.log(localStorage.getItem("savedChats"));
+    loadLocalStorageData()
+
+    // console.log("message:", jsonRes); // Kiểm tra phản hồi từ API
+    // jsonRes.forEach((chat) => {
+    //   if (chat.Message && chat.Message.trim() !== "") {
+    //     localStorage.setItem("savedChats", chat.message);
+    //   }
+    // });
+
+  } catch (error) {
+    console.error("Error fetching chat details:", error); // Thêm thông báo lỗi
+  }
+}
