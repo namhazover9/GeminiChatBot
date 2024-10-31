@@ -78,11 +78,12 @@ body {
     /* top: 10px;
     left: 10px; */
     z-index: 1001;
-    background-color: #1E1E1E;
+    background-color: #4B4B4B;
     color: white;
     border: none;
     padding: 10px;
     cursor: pointer;
+    border-radius: 5px;
   }
   
 /* Slide Bar */
@@ -633,13 +634,20 @@ code{
     border: none;
     border-radius: 1em;
     font-weight: bold;
+    .title-his-chat {
+        font-size: 12px;
+        font-weight: 500;
+        margin: 15% 0 5%;
+    }
     .message-item {
         list-style: none;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 5%;
+        padding: 4%;
+        margin: 2% 0;
         cursor: pointer;
+        font-weight: 400;
         .material-symbols-rounded {
             color: #BDE1C7;
             transition: transform 0.3s ease;
@@ -650,6 +658,7 @@ code{
     }
     .message-item:hover {
         background-color: #f3f4f122;
+        border-radius: 5px;
     }
 }
 
