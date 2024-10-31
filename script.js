@@ -48,11 +48,15 @@ const loadLocalStorageData = () => {
   document.body.classList.toggle("light_mode", isLightMode);
   toggleThemeButton.innerText = isLightMode ? "dark_mode" : "light_mode";
 
+  
   // Restore the chat list from the local storage
   chatList.innerHTML = savedChats || ""; // Set the chat list to the saved chats or an empty string
-
+  
   document.body.classList.toggle("hide-header", savedChats); // Hide the header if there are saved chats
   chatList.scrollTo(0, chatList.scrollHeight); // Scroll to the bottom of the chat list
+
+  console.log(savedChats);
+  
 };
 
 loadLocalStorageData(); // Load the local storage data when the page loads
@@ -164,7 +168,7 @@ const generateAPIResponse = async (incomingMessageDiv) => {
 }
 
 // Show a loading animation while waiting for the API response
-const showLoadingAnimation = () => {
+const showLoadingAnimation = async () => {
   const html = `
         <div class="message-content">
             <img src="images/BigF.png" alt="Gemini Image" class="avatar">
@@ -183,7 +187,9 @@ const showLoadingAnimation = () => {
   chatList.appendChild(incomingMessageDiv); // Append the incoming message to the chat list
   chatList.scrollTo(0, chatList.scrollHeight); // Scroll to the bottom of the chat list
 
-  generateAPIResponse(incomingMessageDiv); // Fetch the API response
+  await generateAPIResponse(incomingMessageDiv); // Fetch the API response
+  await console.log(localStorage.getItem("savedChats"));
+  
 };
 
 // Copy the message text to the clipboard
@@ -200,7 +206,7 @@ const copyMessage = (copyIcon) => {
 const handleOutgoingChat = () => {
   userMessage =
       typingForm.querySelector(".typing-input").value.trim() || userMessage;
-  if (!userMessage || isResponseGenerating) return; // Exit if the user message is empty
+  if (!userMessage || isResponseGenerating) return; // Exit if the user message is emptygit 
 
   isResponseGenerating = true; // Set the response generating state to true
 
@@ -227,6 +233,8 @@ const handleOutgoingChat = () => {
 
   document.body.classList.add("hide-header"); // Hide the header once chat starts
   setTimeout(showLoadingAnimation, 500);
+  console.log(234);
+  
 };
 
 
@@ -257,5 +265,5 @@ deleteChatButton.addEventListener("click", () => {
 typingForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  handleOutgoingChat();
+  handleOutgoingChat();  
 });
