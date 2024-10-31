@@ -299,7 +299,7 @@ toggleThemeButton.addEventListener("click", () => {
   localStorage.setItem("themeColor", isLightMode ? "light_mode" : "dark_mode"); // Save selected theme on browser local storage by themeColor name
   toggleThemeButton.innerText = isLightMode ? "dark_mode" : "light_mode";
 });
-
+// Delete all chats from the chat list
 // Delete all chats from the chat list
 deleteChatButton.addEventListener("click", () => {
   if (confirm("Are you sure you want to delete all chats?")) {
