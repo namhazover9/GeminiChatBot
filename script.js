@@ -357,16 +357,13 @@ typingForm.addEventListener("submit", (e) => {
 // History Chat
 const listHistoryChat = async () => {
   try {
-    const response = await fetch(
-      "https://chatbotdevplus-3.onrender.com/api/chat/all",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          token: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+    const response = await fetch("https://chatbotdevplus-3.onrender.com/api/chat/all", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        token: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
 
     if (!response.ok) {
       throw new Error("Failed to fetch chat history");
@@ -385,6 +382,41 @@ const listHistoryChat = async () => {
     listItemsHTML += "</ul>";
 
     chatContainer.innerHTML = listItemsHTML;
+
+    // Thêm sự kiện xác nhận khi xóa từng mục
+    const deleteIcons = document.querySelectorAll(".delete-icon");
+    deleteIcons.forEach((icon) => {
+      icon.addEventListener("click", async (e) => {
+        e.stopPropagation(); // Ngăn chặn sự kiện lan truyền
+
+        const chatItem = e.target.closest(".message-item");
+        const chatId = chatItem.getAttribute("data-chat-id");
+
+        // Hiển thị hộp thoại xác nhận
+        const confirmDelete = confirm("Are you sure you want to delete this chat?");
+        if (!confirmDelete) return;
+
+        // Gửi yêu cầu xóa đến API
+        try {
+          const deleteResponse = await fetch(`https://chatbotdevplus-3.onrender.com/api/chat/${chatId}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              token: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+
+          if (!deleteResponse.ok) {
+            throw new Error("Failed to delete chat");
+          }
+
+          // Xóa phần tử chat khỏi DOM sau khi xóa thành công
+          chatItem.remove();
+        } catch (error) {
+          console.error("Error deleting chat:", error);
+        }
+      });
+    });
   } catch (error) {
     console.error("Error fetching chat history:", error);
   }
