@@ -376,7 +376,10 @@ const listHistoryChat = async () => {
     listItemsHTML += `<p class="title-his-chat">History Chat</p>`
     jsonRes.forEach((chat) => {
       if (chat.Message && chat.Message.trim() !== "") {
-        listItemsHTML += `<li class="message-item" onclick="detailsChat('${chat._id}')"><span class="message-title">${chat.title}</span> <span class="material-symbols-rounded">delete</span></li>`;
+        listItemsHTML += `<li class="message-item" onclick="detailsChat('${chat._id}')" data-chat-id="${chat._id}">
+                            <span class="message-title">${chat.title}</span>
+                            <span class="material-symbols-rounded delete-icon">delete</span>
+                          </li>`;
       }
     });
     listItemsHTML += "</ul>";
