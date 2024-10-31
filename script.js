@@ -353,3 +353,38 @@ typingForm.addEventListener("submit", (e) => {
 
   handleOutgoingChat();
 });
+
+// History Chat
+const listHistoryChat = async () => {
+  try {
+    const response = await fetch(
+      "https://chatbotdevplus-3.onrender.com/api/chat/all",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          token: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch chat history");
+    }
+
+    const jsonRes = await response.json();
+    const chatContainer = document.querySelector(".history-chat");
+
+    let listItemsHTML = '<ul class="message-list">';
+    jsonRes.forEach((chat) => {
+      if (chat.Message && chat.Message.trim() !== "") {
+        listItemsHTML += `<li class="message-item">${chat.title} <span class="material-symbols-rounded">delete</span></li>`;
+      }
+    });
+    listItemsHTML += "</ul>";
+
+    chatContainer.innerHTML = listItemsHTML;
+  } catch (error) {
+    console.error("Error fetching chat history:", error);
+  }
+};

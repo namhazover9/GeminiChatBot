@@ -17,7 +17,7 @@
     <!-- Navbar -->
     <div class="navbar">
       <div class="navbar-left">
-        <button id="slide-bar-toggle" class="slide-bar-toggle">☰</button>
+        <button id="slide-bar-toggle" class="slide-bar-toggle" onclick="listHistoryChat()">☰</button>
         <h2 class="navbar-title">BigFour</h2>
       </div>
       <div class="navbar-right">
@@ -40,6 +40,7 @@
     <div id="slide-bar" class="slide-bar">
       <div class="slide-bar-content">
         <button id="new-chat-btn"><span class="icon material-symbols-rounded" style="font-size: 1.5em;">add_circle</span> <span style="margin: auto; font-size: 1.2em;">New chat</span> </button> 
+        <div class="history-chat"></div>
         <button id="btn-logout" class="btn-logout"><span class="icon material-symbols-rounded" style="font-size: 1.5em;">logout</span>Log out</button>     
 
       </div>
