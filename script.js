@@ -4,7 +4,7 @@ const suggestions = document.querySelectorAll(".suggestion-list .suggestion");
 const toggleThemeButton = document.querySelector("#toggle-theme-button");
 const deleteChatButton = document.querySelector("#delete-chat-button");
 const newChatButton = document.querySelector("#new-chat-btn");
-
+let idChat = null;
 let userMessage = null;
 let isResponseGenerating = false;
 let conversationHistory = [];
@@ -84,6 +84,7 @@ newChatButton.addEventListener("click", async () => {
 
     // Thêm chat mới vào danh sách chats
     const newChatElement = createMessageElement(`<p>Chat ID: ${newChat._id}</p>`, "outgoing");
+    idChat = newChat._id;
     chatList.appendChild(newChatElement);
     chatList.scrollTo(0, chatList.scrollHeight);
     localStorage.removeItem("savedChats"); // Remove the saved chats from the local storage
@@ -104,27 +105,43 @@ const createMessageElement = (content, ...classes) => {
 };
 
 // Show typing effect by displaying words one by one and Save the chat list to the local storage
-const showTypingEffect = (rawText, htmlText, messageElement, incomingMessageElement) => {
+const showTypingEffect = async (rawText, htmlText, messageElement, incomingMessageElement) => {
   const copyIconElement = incomingMessageElement.querySelector(".icon");
   copyIconElement.classList.add("hide"); // Initially hide copy button
-
   const wordsArray = rawText.split(' ');
   let wordIndex = 0;
+  while (wordIndex < wordsArray.length) {
+    messageElement.innerText += (wordIndex === 0 ? '' : ' ') + wordsArray[wordIndex++];
+    await new Promise(resolve => setTimeout(resolve, 20)); // Thay setInterval bằng await setTimeout
+    chatList.scrollTo(0, chatList.scrollHeight); // Scroll to the bottom of the chat list
+  }
+  isResponseGenerating = false;
+  messageElement.innerHTML = htmlText;
+  hljs.highlightAll();
+  addCopyButtonToCodeBlocks();
+  copyIconElement.classList.remove("hide");
+  localStorage.setItem("savedChats", chatList.innerHTML);
+  let chat = localStorage.getItem("savedChats");
 
-  const typingInterval = setInterval(() => {
-      messageElement.innerText += (wordIndex === 0 ? '' : ' ') + wordsArray[wordIndex++];
-      if (wordIndex === wordsArray.length) {
-          clearInterval(typingInterval);
-          isResponseGenerating = false;
-          messageElement.innerHTML = htmlText;
-          hljs.highlightAll();
-          addCopyButtonToCodeBlocks();
-          copyIconElement.classList.remove("hide");
-          localStorage.setItem("savedChats", chatList.innerHTML);
-      }
-  chatList.scrollTo(0, chatList.scrollHeight); // Scroll to the bottom of the chat list
-  }, 20);
+  try {
+    const response = await fetch(`https://chatbotdevplus-3.onrender.com/api/chat/${idChat}`, { // Sửa lại URL theo backend của bạn
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        'token': `Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify({
+        "message": chat
+      }) 
+    });
+    if (!response.ok) {
+      throw new Error("Failed to create chat");
+    }
+  } catch (error) {
+    console.error("Error creating chat:", error);
+  }
 };
+
 
 const addCopyButtonToCodeBlocks = () => {
   
