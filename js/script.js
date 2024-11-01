@@ -465,7 +465,7 @@ const listHistoryChat = async () => {
               },
             }
           );
-          if(idChat == chatId){
+          if (idChat == chatId) {
             localStorage.removeItem("savedChats");
             loadLocalStorageData();
             createNewChat();
@@ -476,7 +476,6 @@ const listHistoryChat = async () => {
 
           // Xóa phần tử chat khỏi DOM sau khi xóa thành công
           chatItem.remove();
-          
         } catch (error) {
           console.error("Error deleting chat:", error);
         }
@@ -523,3 +522,36 @@ const detailsChat = async (id) => {
     console.error("Error fetching chat details:", error); // Thêm thông báo lỗi
   }
 };
+
+// Voice chat function
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+  const recognition = new SpeechRecognition();
+  recognition.lang = "en-US"; // language English USA
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  const voiceChatButton = document.getElementById("voice-chat-button");
+  const typingInput = document.querySelector(".typing-input");
+
+  voiceChatButton.addEventListener("click", () => {
+    recognition.start();
+  });
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    typingInput.value = transcript;
+  };
+
+  recognition.onend = () => {
+    console.log("Voice recognition ended.");
+  };
+
+  recognition.onerror = (event) => {
+    console.error("Voice recognition error:", event.error);
+  };
+} else {
+  console.warn("Browser does not support Web Speech API.");
+}
