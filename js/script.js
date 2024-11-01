@@ -123,15 +123,15 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const logoutBtn = document.getElementById("btn-logout");
+  const slideBar = document.getElementById("slide-bar-toggle");
   const token = localStorage.getItem("token"); // Kiểm tra xem có token đăng nhập không
 
   if (!token) {
     // Nếu chưa đăng nhập, ẩn nút logout
-    logoutBtn.style.display = "none";
+    slideBar.style.display = "none";
   } else {
     // Nếu đã đăng nhập, hiển thị nút logout
-    logoutBtn.style.display = "block";
+    slideBar.style.display = "block";
   }
 });
 
@@ -390,10 +390,8 @@ toggleThemeButton.addEventListener("click", () => {
 // Delete all chats from the chat list
 // Delete all chats from the chat list
 deleteChatButton.addEventListener("click", () => {
-  if (confirm("Are you sure you want to delete all chats?")) {
-    localStorage.removeItem("savedChats"); // Remove the saved chats from the local storage
-    loadLocalStorageData();
-  }
+  localStorage.removeItem("savedChats"); // Remove the saved chats from the local storage
+  loadLocalStorageData();
 });
 
 // Prevent the default form submission and handle outgoing chat
