@@ -30,132 +30,254 @@
     --secondary-hover-color: linear-gradient(180deg, #82CDDD 0%, #FFF799 100%);
 }
 
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Raleway, sans-serif;
+}
+
 body {
-    /* background: var(--primary-color); */
-}
-
-
-
-.login {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
     justify-content: center;
-    background-image: url('/images/bg_chatbot.jpg');
-    background-size: cover; /* Giúp ảnh phủ toàn bộ phần nền */
-    background-repeat: no-repeat; /* Ngăn không cho ảnh lặp lại */
-    background-position: center; /* Đặt ảnh ở giữa */
-}
-
-.login .login-logo {
-    margin-bottom: 20px;
-    width: 80px;
-    display: flex;
     align-items: center;
-}
-
-.login-page {
-    padding: 6% 3%;
-    border: 1px solid;
-    border-radius: 5%;
-    transition: 0.3s;
-    background-color: #ffffffd6;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-
-
-.login-page h2 {
-    text-align: center;
-    /* margin: 0 0 20px; */
-    font-size: 48px;
-    /* font-weight: bold; */
-    margin-bottom: 10%;
-}
-
-.login-page h3 {
-    text-align: left;
-    /* margin: 0 0 11%; */
-    font-weight: bold;
-    margin-bottom: 5%;
-}
-
-
-
-.login-page .input {
-    display: block;
-    text-align: left;
-    margin-bottom: 5px;
-    font-family: "SF Pro";
-    padding: 0.875rem 20px;
-    font-size: 1rem;
-    border: 1.5px solid #000;
-    width: 20rem;
-    border-radius: 0.5rem;
-    outline: none;
-    transition: ease 0.25s;
-}
-
-.login-page .input:focus {
-}
-
-
-.login-page .button-submit {
-    width: 100%;
-    padding: 0.875rem;
-    border: none;
-    border-radius: 25px;
-    background: linear-gradient(to right, #2F8B9E, #E0DB9B);
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10%;
-    transition: 0.3s;
-    /* text-align: center;*/
-}
-
-.login-page .button-submit:hover {
-    box-shadow: 0px 2px 0 #2F8B9E;
-}
-
-.div-button {
-    height: 15vh;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 1.5em;
-}
-
-.div-img{
-    position: absolute;
-    left: 0; /* Đặt ở sát lề trái */
-    top: 0;
-    margin: 1em;
-}
-
-.login-page button:hover {
+    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
     background: linear-gradient(to right, #E0DB9B, #2F8B9E);
 }
 
-.login .back-arrow {
-    margin-top: 20px;
+.screen {
+    background: linear-gradient(to right, #E0DB9B, #2F8B9E);
+    position: relative;
+    height: 500px;
+    width: 330px;
+    box-shadow: 0px 0px 24px #2F8B9E;
+    overflow: hidden;
+    /* Prevents content overflow */
+    border-radius: 5px;
+}
+
+.screen__content {
+    z-index: 1;
+    position: relative;
+}
+
+.screen__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    clip-path: inset(0 0 0 0);
+}
+
+.screen__background__shape {
+    transform: rotate(45deg);
+    position: absolute;
+}
+
+.screen__background__shape1 {
+    height: 500px;
+    width: 500px;
+    background: #FFF;
+    top: -50px;
+    right: 120px;
+    border-radius: 0 72px 0 0;
+}
+
+.screen__background__shape2 {
+    height: 220px;
+    width: 220px;
+    background: linear-gradient(to right, #E0DB9B, #2F8B9E);
+    top: -172px;
+    right: 0;
+    border-radius: 32px;
+}
+
+.screen__background__shape3 {
+    height: 540px;
+    width: 190px;
+    background: linear-gradient(to right, #E0DB9B, #2F8B9E);
+    top: -24px;
+    right: 0;
+    border-radius: 32px;
+}
+
+.screen__background__shape4 {
+    height: 400px;
+    width: 200px;
+    background: linear-gradient(to right, #E0DB9B, #2F8B9E);
+    top: 420px;
+    right: 50px;
+    border-radius: 60px;
+}
+
+.login {
+    width: 320px;
+    padding: 30px;
+    padding-top: 156px;
+}
+
+.login__field {
+    padding: 20px 0px;
+    position: relative;
+}
+
+.login__icon {
+    position: absolute;
+    top: 30px;
+    color: #2F8B9E;
+}
+
+.login__input {
+    border: none;
+    border-bottom: 2px solid #D1D1D4;
+    background: none;
+    padding: 10px;
+    padding-left: 24px;
+    font-weight: 700;
+    width: 75%;
+    transition: .2s;
+}
+
+.login__input:active,
+.login__input:focus,
+.login__input:hover {
+    outline: none;
+    border-bottom-color: #2F8B9E;
+}
+
+.login__submit {
+    background: #fff;
+    font-size: 14px;
+    margin: 5% 0;
+    padding: 5% 7%;
+    border-radius: 26px;
+    border: 1px solid #D4D3E8;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    width: 75%;
+    color: #4C489D;
+    box-shadow: 0px 2px 2px #2F8B9E;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.login__submit:active,
+.login__submit:focus,
+.login__submit:hover {
+    border-color: #2F8B9E;
+    outline: none;
+}
+
+.button__icon {
     font-size: 24px;
-    color: black;
-    background-color: transparent;
+    margin-left: auto;
+    color: #2F8B9E;
+}
+
+.social-login {
+    position: absolute;
+    height: 140px;
+    width: 160px;
+    text-align: center;
+    bottom: 0px;
+    right: 0px;
+    color: #fff;
+}
+
+.social-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-login__icon {
+    padding: 20px 10px;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0px 0px 8px #2F8B9E;
+}
+
+.social-login__icon:hover {
+    transform: scale(1.5);
+}
+
+/* From Uiverse.io by adamgiebl */
+
+.div-active {
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.div-button {
+    font-family: inherit;
+    font-size: 0.8rem;
+    background: linear-gradient(to right, #E0DB9B, #2F8B9E);
+    color: white;
+    margin: 5% 0;
+    padding: 16px 12px;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.2s;
     cursor: pointer;
 }
 
-.back-icon{
-    width: 1.5em;
-    height: 1.5em;
+.div-button span {
+    display: block;
+    margin-left: 0.3em;
+    transition: all 0.3s ease-in-out;
+    padding: 10%;
 }
 
-.back-icon:hover{
-    background-color: #E0DB9B;
-    border-radius: 50%;
+.div-button svg {
+    display: block;
+    transform-origin: center center;
+    transition: transform 0.3s ease-in-out;
 }
 
-.login .back-arrow .icon:hover {}
+.div-button .svg-wrapper-1 {
+    padding-right: 20px;
+}
+
+.div-button:hover .svg-wrapper {
+    animation: fly-1 0.6s ease-in-out infinite alternate;
+}
+
+.div-button:hover svg {
+    transform: translateX(-1.2em) rotate(-135deg) scale(1.1);
+}
+
+.div-button:hover span {
+    transform: translateX(-5em);
+}
+
+.div-button:active {
+    transform: scale(0.95);
+}
+
+.button__text {
+    color: #2F8B9E;
+}
+
+@keyframes fly-1 {
+    from {
+        transform: translateY(0.1em);
+    }
+
+    to {
+        transform: translateY(-0.1em);
+    }
+}
