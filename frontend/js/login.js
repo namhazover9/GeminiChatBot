@@ -2,7 +2,7 @@
 
 // login.js
 document.addEventListener("DOMContentLoaded", () => {
-    const loginForm = document.querySelector(".login-page");
+    const loginForm = document.querySelector(".form");
     loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 

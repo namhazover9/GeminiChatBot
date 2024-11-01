@@ -49,6 +49,28 @@ body {
   color: var(--secondary-background);
 }
 
+@keyframes background {
+  from {
+    background-position: 0 0%;
+  }
+  to {
+    background-position: 0 -200px;
+  }
+}
+.text-animation {
+  color: #F2F5FE;
+  /* text-align: center; */
+  font-size: 2em;
+  line-height: 1;
+  font-family: 'Rajdhani', sans-serif;
+  background: -webkit-radial-gradient(transparent, transparent),
+   url(https://images.unsplash.com/photo-1559762717-99c81ac85459?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) repeat;
+  background-size: 200px auto;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  animation: background 8s infinite linear;
+}
+
 /* Navbar */
 .navbar {
   display: flex;
@@ -76,6 +98,10 @@ body {
 
 #toggle-theme-button {
   color: var(--text-color);
+}
+#toggle-theme-button:hover {
+  transform: scale(1.1);
+  transition: all 0.5s ease-in;
 }
 
 /* Slide Bar Toggle Button */
@@ -134,7 +160,6 @@ body {
 
 #new-chat-btn:hover {
   box-shadow: 0 1px 2px rgba(130, 205, 221, 1);
-  opacity: 0.9;
   transform: scale(1.05);
   transition: all 0.5s ease-in-out;
 }
@@ -156,7 +181,8 @@ body {
 .btn-logout:hover {
   background: var(--secondary-hover-color);
   box-shadow: 0 2px 4px rgba(130, 205, 221, 1);
-  opacity: 0.9;
+  transform: scale(1.05);
+  transition: all 0.5s ease-in-out;
 }
 
 .header,
@@ -224,10 +250,12 @@ body.hide-header .header-body-content {
 }
 
 .header .title {
-  font-size: 2.7rem;
+  font-size: 1.7rem;
   width: fit-content;
   background-clip: text;
-  background: linear-gradient(to right, #82cddd, #fff799);
+  /* background: linear-gradient(to right, #82cddd, #fff799);
+   */
+   background: var(--placeholder-color);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

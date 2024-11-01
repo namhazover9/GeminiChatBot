@@ -1,38 +1,4 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-}
-
-:root {
-    /* Dark mode colors */
-    /* Dark mode colors */
-    --text-color: #fff;
-    --subheading-color: #828282;
-    --placeholder-color: #fff;
-    --primary-color: #474747;
-    --secondary-color: radial-gradient(circle farthest-corner at 10% 20%,
-            #2F8B9E 0%,
-            #E0DB9B 90%);
-    --secondary-hover-color: linear-gradient(180deg, #2F8B9E 0%, #E0DB9B 100%);
-}
-
-.light_mode {
-    /* Light mode colors */
-    --text-color: #222;
-    --subheading-color: #A0A0A0;
-    --placeholder-color: #000;
-    --primary-color: #fff;
-    --secondary-color: radial-gradient(circle farthest-corner at 10% 20%,
-            #82CDDD 0%,
-            #FFF799 90%);
-    --secondary-hover-color: linear-gradient(180deg, #82CDDD 0%, #FFF799 100%);
-}
-
-@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
-
-* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -46,10 +12,37 @@ body {
     min-height: 100vh;
     height: 100vh;
     overflow: hidden;
-    background: linear-gradient(to right, #E0DB9B, #2F8B9E);
+    /* background: linear-gradient(to right, #2F8B9E, #E0DB9B); */
+    background: -webkit-radial-gradient(transparent, transparent),
+    url(https://plus.unsplash.com/premium_photo-1689247409434-b01579b2d14c?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) repeat;
+    /* background-size: 200px auto; */
+    /* -webkit-text-fill-color: transparent; */
+    -webkit-background-clip: text;
+    animation: background 12s infinite linear;
+    
 }
 
-.screen {
+body::before {
+    content: ""; /* Để tạo overlay */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5); /* Màu và độ trong suốt */
+  /* z-index: 1; */
+}
+
+@keyframes background {
+    from {
+    background-position: 0 0%;
+    }
+    to {
+    background-position: 0 -200px;
+    }
+}
+
+.container {
     background: linear-gradient(to right, #E0DB9B, #2F8B9E);
     position: relative;
     height: 500px;
@@ -60,19 +53,78 @@ body {
     border-radius: 5px;
 }
 
-.screen__content {
+.login-container {
+    position: relative;
+    height: 70%;
+    width: 75%;
+    box-shadow: 0px 0px 24px #2F8B9E;
+    overflow: hidden;
+    border-radius: 5px;
+    z-index: 999;
+    left: 12%;
+    opacity: 0.8;
+}
+
+.login-container form {
+    margin: 10% 0;
+}
+
+.login-field {
+    padding: 20px 0px;
+    position: relative;
+}
+
+.login-icon {
+    position: absolute;
+    top: 30px;
+    color: #2F8B9E;
+}
+
+.login-input {
+    border: none;
+    border-bottom: 2px solid #D1D1D4;
+    background: none;
+    padding: 10px;
+    padding-left: 24px;
+    font-weight: 700;
+    width: 75%;
+    transition: .2s;
+}
+.logo-image {
+    margin: 5%;
+    position: relative;
+    width: 15%;
+    z-index: 999;
+}
+
+.form {
     z-index: 1;
     position: relative;
 }
 
-.screen__background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 0;
-    clip-path: inset(0 0 0 0);
+.text h3 {
+    margin-top: 5%;
+    color: rgb(39, 148, 170);
+    font-size: 24px;
+}
+
+.text p {
+    margin: 5%;
+    font-size: 16px;
+    font-weight: 500;
+    color: #000000;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: italic;
+}
+
+.inp .input {
+    border: none;
+    border-bottom: 2px solid #D1D1D4;
+    background: none;
+    padding: 10px;
+    font-weight: 700;
+    width: 75%;
+    transition: .2s;
 }
 
 .screen__background__shape {
@@ -116,116 +168,72 @@ body {
     border-radius: 60px;
 }
 
-.login {
-    width: 320px;
-    padding: 30px;
-    padding-top: 156px;
+.content .text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+
 }
 
-.login__field {
-    padding: 20px 0px;
-    position: relative;
-}
-
-.login__icon {
-    position: absolute;
-    top: 30px;
-    color: #2F8B9E;
-}
-
-.login__input {
-    border: none;
-    border-bottom: 2px solid #D1D1D4;
-    background: none;
-    padding: 10px;
-    padding-left: 24px;
-    font-weight: 700;
+.content .inp {
     width: 75%;
-    transition: .2s;
-}
-
-.login__input:active,
-.login__input:focus,
-.login__input:hover {
-    outline: none;
-    border-bottom-color: #2F8B9E;
-}
-
-.login__submit {
-    background: #fff;
-    font-size: 14px;
+    display: flex;
+    justify-content: space-around;
     margin: 5% 0;
-    padding: 5% 7%;
-    border-radius: 26px;
-    border: 1px solid #D4D3E8;
+}
+
+.content .btn-active {
+    height: 10vh;
+    /* display: flex;
+    justify-content: space-evenly;
+    flex-direction: column; */
+    margin: 5% 0;
+}
+
+.content .btn-active .confirm {
+    /* font-weight: 500;
+    font-size: 1rem;
+    width: 50%;
+    height: 5vh;
+    border: none;
+    border-radius: 25px; */
+    font-size: 14px;
     text-transform: uppercase;
     font-weight: 700;
     display: flex;
     align-items: center;
-    width: 75%;
-    color: #4C489D;
-    box-shadow: 0px 2px 2px #2F8B9E;
+    justify-content: center;
+    width: 50%;
+    color: rgb(76, 72, 157);
+    box-shadow: rgb(47, 139, 158) 0px 2px 2px;
     cursor: pointer;
-    transition: .2s;
+    background: rgb(255, 255, 255);
+    margin: 10% 0px;
+    padding: 3% 5%;
+    border-radius: 26px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(212, 211, 232);
+    border-image: initial;
+    transition: 0.2s;
 }
 
-.login__submit:active,
-.login__submit:focus,
-.login__submit:hover {
+.content .btn-active .confirm:hover {
     border-color: #2F8B9E;
     outline: none;
 }
 
-.button__icon {
-    font-size: 24px;
-    margin-left: auto;
-    color: #2F8B9E;
+.content .inp .input {
+    margin: 0 3%;
 }
 
-.social-login {
-    position: absolute;
-    height: 140px;
-    width: 160px;
-    text-align: center;
-    bottom: 0px;
-    right: 0px;
-    color: #fff;
-}
-
-.social-icons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.social-login__icon {
-    padding: 20px 10px;
-    color: #fff;
-    text-decoration: none;
-    text-shadow: 0px 0px 8px #2F8B9E;
-}
-
-.social-login__icon:hover {
-    transform: scale(1.5);
-}
-
-/* From Uiverse.io by adamgiebl */
-
-.div-active {
-    height: 20vh;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: space-between;
-}
-
-.div-button {
+.arrow-back {
     font-family: inherit;
     font-size: 0.8rem;
     background: linear-gradient(to right, #E0DB9B, #2F8B9E);
     color: white;
-    margin: 5% 0;
-    padding: 16px 12px;
     display: flex;
     align-items: center;
     border: none;
@@ -233,38 +241,41 @@ body {
     overflow: hidden;
     transition: all 0.2s;
     cursor: pointer;
+    text-decoration: none;
+    width: 40%;
+    margin-left: 35%;
 }
 
-.div-button span {
+.arrow-back span {
     display: block;
     margin-left: 0.3em;
     transition: all 0.3s ease-in-out;
     padding: 10%;
 }
 
-.div-button svg {
+.arrow-back svg {
     display: block;
     transform-origin: center center;
     transition: transform 0.3s ease-in-out;
 }
 
-.div-button .svg-wrapper-1 {
+.arrow-back .svg-wrapper-1 {
     padding-right: 20px;
 }
 
-.div-button:hover .svg-wrapper {
+.arrow-back:hover .svg-wrapper {
     animation: fly-1 0.6s ease-in-out infinite alternate;
 }
 
-.div-button:hover svg {
+.arrow-back:hover svg {
     transform: translateX(-1.2em) rotate(-135deg) scale(1.1);
 }
 
-.div-button:hover span {
+.arrow-back:hover span {
     transform: translateX(-5em);
 }
 
-.div-button:active {
+.arrow-back:active {
     transform: scale(0.95);
 }
 
