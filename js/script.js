@@ -111,6 +111,18 @@ newChatButton.addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+  const newChatBtn = document.getElementById("delete-chat-button");
+  const token = localStorage.getItem("token"); // Kiểm tra xem có token đăng nhập không
+
+  if (!token) {
+    // Nếu chưa đăng nhập, ẩn nút logout
+  } else {
+    // Nếu đã đăng nhập, hiển thị nút logout
+    newChatBtn.style.display = "none";
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn = document.getElementById("btn-logout");
   const token = localStorage.getItem("token"); // Kiểm tra xem có token đăng nhập không
 
@@ -122,6 +134,8 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutBtn.style.display = "block";
   }
 });
+
+
 
 const logout = () => {
   // Hiển thị hộp thoại xác nhận
