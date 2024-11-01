@@ -411,8 +411,8 @@ const listHistoryChat = async () => {
     const jsonRes = await response.json();
     const chatContainer = document.querySelector(".history-chat");
 
-    let listItemsHTML = '<ul class="message-list">';
-    listItemsHTML += `<p class="title-his-chat">History Chat</p>`;
+    let listItemsHTML = `<span class="title-his-chat">History Chat</span>`;
+    listItemsHTML += '<ul class="message-list">';
     jsonRes.forEach((chat) => {
       if (chat.Message && chat.Message.trim() !== "") {
         listItemsHTML += `<li class="message-item" onclick="detailsChat('${chat._id}')" data-chat-id="${chat._id}">
