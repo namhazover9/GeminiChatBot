@@ -1,48 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="/css/style.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <title>Chat Bot Big Four</title>
   </head>
 
   <body>
-
     <!-- Navbar -->
     <div class="navbar">
       <div class="navbar-left">
-        <button id="slide-bar-toggle" class="slide-bar-toggle" onclick="listHistoryChat()">☰</button>
+        <button
+          id="slide-bar-toggle"
+          class="slide-bar-toggle"
+          onclick="listHistoryChat()"
+        >
+          ☰
+        </button>
         <h2 class="navbar-title">BigFour</h2>
       </div>
       <div class="navbar-right">
         <div class="header-title">
           <div class="header-button">
             <div class="header-button-right">
-              <span id="toggle-theme-button" class="icon material-symbols-rounded">light_mode</span>
+              <span
+                id="toggle-theme-button"
+                class="icon material-symbols-rounded"
+                >light_mode</span
+              >
               <!-- <div class="div-img">
                 <img src="../images/avatar.png" alt="" class="img-user">
               </div> -->
-                  <div  id="btn-login"></div>
-                
+              <div id="btn-login"></div>
             </div>
           </div>
-  
         </div>
       </div>
     </div>
 
     <div id="slide-bar" class="slide-bar">
       <div class="slide-bar-content">
-        <button id="new-chat-btn"><span class="icon material-symbols-rounded" style="font-size: 1.5em;">add_circle</span> <span style="margin: auto; font-size: 1.2em;">New chat</span> </button> 
+        <button id="new-chat-btn">
+          <span class="icon material-symbols-rounded" style="font-size: 1.5em"
+            >add_circle</span
+          >
+          <span style="margin: auto; font-size: 1.2em">New chat</span>
+        </button>
         <div class="history-chat"></div>
-        <button id="btn-logout" class="btn-logout"><span class="icon material-symbols-rounded" style="font-size: 1.5em;">logout</span>Log out</button>     
-
+        <button id="btn-logout" class="btn-logout">
+          <span class="icon material-symbols-rounded" style="font-size: 1.5em"
+            >logout</span
+          >Log out
+        </button>
       </div>
     </div>
     <header class="header">
@@ -56,47 +82,65 @@
         <!-- Suggestion List -->
         <ul class="suggestion-list">
           <li class="suggestion">
-            <h4 class="text">Help me plan a game night with my 5 best friends for under $100.</h4>
+            <h4 class="text">
+              Help me plan a game night with my 5 best friends for under $100.
+            </h4>
             <span class="icon material-symbols-rounded">draw</span>
           </li>
 
           <li class="suggestion">
-            <h4 class="text">What are the best tips to improve my public speaking skills</h4>
+            <h4 class="text">
+              What are the best tips to improve my public speaking skills
+            </h4>
             <span class="icon material-symbols-rounded">lightbulb</span>
           </li>
 
           <li class="suggestion">
-            <h4 class="text">Can you help me find the latest news on web development</h4>
+            <h4 class="text">
+              Can you help me find the latest news on web development
+            </h4>
             <span class="icon material-symbols-rounded">explore</span>
           </li>
 
           <li class="suggestion">
-            <h4 class="text">Write JavaScript code to sum all elements in an array</h4>
+            <h4 class="text">
+              Write JavaScript code to sum all elements in an array
+            </h4>
             <span class="icon material-symbols-rounded">code</span>
           </li>
         </ul>
       </div>
-
     </header>
 
     <!-- Chat List / Container-->
-    <div class="chats">
-    </div>
-
+    <div class="chats"></div>
 
     <!-- Typing Area -->
     <div class="typing-area">
       <form action="#" class="typing-form">
         <div class="input-wrapper">
-          <input type="text" placeholder="Enter a prompt here" class="typing-input" required>
+          <input
+            type="text"
+            placeholder="Enter a prompt here"
+            class="typing-input"
+            required
+          />
           <button class="icon material-symbols-rounded">send</button>
         </div>
         <div class="action-buttons">
-          <span id="delete-chat-button" class="icon material-symbols-rounded">delete</span>
+          <i
+            id="voice-chat-button"
+            class="icon bi bi-mic"
+            style="font-size: 1.2rem"
+          ></i>
+          <span id="delete-chat-button" class="icon material-symbols-rounded"
+            >delete</span
+          >
         </div>
       </form>
       <p class="disclaimer-text">
-        BigFour may display inaccurate info, including about people, so double-check its responses.
+        BigFour may display inaccurate info, including about people, so
+        double-check its responses.
       </p>
     </div>
 
@@ -104,13 +148,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <script>
-      document.getElementById('slide-bar-toggle').addEventListener('click', function() {
-        var slideBar = document.getElementById('slide-bar');
-        slideBar.classList.toggle('active');
-      });
+      document
+        .getElementById("slide-bar-toggle")
+        .addEventListener("click", function () {
+          var slideBar = document.getElementById("slide-bar");
+          slideBar.classList.toggle("active");
+        });
     </script>
 
     <script src="/js/script.js"></script>
   </body>
-
 </html>
