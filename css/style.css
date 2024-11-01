@@ -443,6 +443,69 @@ code {
     box-shadow: 0 2px 4px rgba(255, 247, 153, 1);
 } */
 
+/* For image upload */
+.attachment {
+    width: 50%;
+    margin-top: -7px;
+    border-radius: 13px 13px 13px 13px;
+}
+
+.file-upload-wrapper {
+    position: relative;
+    height: 56px;
+    width: 56px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--secondary-color);
+    border: none;
+    color: var(--text-color);   
+  }
+.file-upload-wrapper :where(button, img) {
+    position: absolute;
+    height: 56px;
+    width: 56px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--secondary-color);
+    border: none;
+    color: var(--text-color);   
+    
+  }
+.file-upload-wrapper img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    height: 56px;
+    width: 56px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--secondary-color);
+    border: none;
+    
+}
+.file-upload-wrapper #file-cancel {
+    color: #ff0000;
+    background: #fff;
+}
+ .file-upload-wrapper :where(img, #file-cancel),
+ .file-upload-wrapper.file-uploaded #file-upload {
+    display: none;
+  }
+.file-upload-wrapper.file-uploaded img,
+.file-upload-wrapper.file-uploaded:hover #file-cancel {
+    display: flex;
+  }
+
 .chats .message .icon {
   height: 35px;
   width: 35px;

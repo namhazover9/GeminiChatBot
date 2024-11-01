@@ -119,14 +119,10 @@
     <div class="typing-area">
       <form action="#" class="typing-form">
         <div class="input-wrapper">
-          <input
-            type="text"
-            placeholder="Enter a prompt here"
-            class="typing-input"
-            required
-          />
+          <input type="text" placeholder="Enter a prompt here" class="typing-input" required />
           <button class="icon material-symbols-rounded">send</button>
         </div>
+
         <div class="action-buttons">
           <i
             id="voice-chat-button"
@@ -134,8 +130,16 @@
             style="font-size: 1.2rem"
           ></i>
           <span id="delete-chat-button" class="icon material-symbols-rounded">add</span>
+          <div class="file-upload-wrapper ">
+            <input type="file" accept="image/*" id="file-input" hidden />
+            <img src="#" />
+            <button type="button" id="file-upload" class=" material-symbols-rounded">imagesmode</button>
+            <button type="button" id="file-cancel" class=" material-symbols-rounded">close</button>
+          </div>
         </div>
+
       </form>
+
       <p class="disclaimer-text">
         BigFour may display inaccurate info, including about people, so
         double-check its responses.
