@@ -111,17 +111,30 @@ newChatButton.addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const logoutBtn = document.getElementById("btn-logout");
+  const newChatBtn = document.getElementById("delete-chat-button");
   const token = localStorage.getItem("token"); // Kiểm tra xem có token đăng nhập không
 
   if (!token) {
     // Nếu chưa đăng nhập, ẩn nút logout
-    logoutBtn.style.display = "none";
   } else {
     // Nếu đã đăng nhập, hiển thị nút logout
-    logoutBtn.style.display = "block";
+    newChatBtn.style.display = "none";
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const slideBar = document.getElementById("slide-bar-toggle");
+  const token = localStorage.getItem("token"); // Kiểm tra xem có token đăng nhập không
+
+  if (!token) {
+    // Nếu chưa đăng nhập, ẩn nút logout
+    slideBar.style.display = "none";
+  } else {
+    // Nếu đã đăng nhập, hiển thị nút logout
+    slideBar.style.display = "block";
+  }
+});
+
 
 
 const logout = () => {
@@ -377,10 +390,8 @@ toggleThemeButton.addEventListener("click", () => {
 // Delete all chats from the chat list
 // Delete all chats from the chat list
 deleteChatButton.addEventListener("click", () => {
-  if (confirm("Are you sure you want to delete all chats?")) {
-    localStorage.removeItem("savedChats"); // Remove the saved chats from the local storage
-    loadLocalStorageData();
-  }
+  localStorage.removeItem("savedChats"); // Remove the saved chats from the local storage
+  loadLocalStorageData();
 });
 
 // Prevent the default form submission and handle outgoing chat
@@ -452,7 +463,7 @@ const listHistoryChat = async () => {
               },
             }
           );
-          if(idChat == chatId){
+          if (idChat == chatId) {
             localStorage.removeItem("savedChats");
             loadLocalStorageData();
             createNewChat();
@@ -463,7 +474,6 @@ const listHistoryChat = async () => {
 
           // Xóa phần tử chat khỏi DOM sau khi xóa thành công
           chatItem.remove();
-          
         } catch (error) {
           console.error("Error deleting chat:", error);
         }
@@ -510,3 +520,36 @@ const detailsChat = async (id) => {
     console.error("Error fetching chat details:", error); // Thêm thông báo lỗi
   }
 };
+
+// Voice chat function
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+  const recognition = new SpeechRecognition();
+  recognition.lang = "en-US"; // language English USA
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  const voiceChatButton = document.getElementById("voice-chat-button");
+  const typingInput = document.querySelector(".typing-input");
+
+  voiceChatButton.addEventListener("click", () => {
+    recognition.start();
+  });
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    typingInput.value = transcript;
+  };
+
+  recognition.onend = () => {
+    console.log("Voice recognition ended.");
+  };
+
+  recognition.onerror = (event) => {
+    console.error("Voice recognition error:", event.error);
+  };
+} else {
+  console.warn("Browser does not support Web Speech API.");
+}
