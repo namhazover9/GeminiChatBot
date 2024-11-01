@@ -4,14 +4,25 @@ const suggestions = document.querySelectorAll(".suggestion-list .suggestion");
 const toggleThemeButton = document.querySelector("#toggle-theme-button");
 const deleteChatButton = document.querySelector("#delete-chat-button");
 const newChatButton = document.querySelector("#new-chat-btn");
+const fileInput = document.querySelector("#file-input");
+const fileUploadWrapper = document.querySelector(".file-upload-wrapper");
+const fileCancelButton = fileUploadWrapper.querySelector("#file-cancel");
+
 let idChat = null;
-let userMessage = null;
+let userMessage = {
+  message: null,
+  file: {
+    data: null,
+    mime_type: null,
+  },
+};
 let isResponseGenerating = false;
 let conversationHistory = [];
 
 // API configuration
-const API_KEY = "AIzaSyC8e5jD2ccpBnEjLM9oKipA7O2xuMa8MBQ";
+const API_KEY = "AIzaSyAe1wHKg5Gj3wAqxLEaktNVyckKJekzi14";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const loginBtn = document.getElementById("btn-login");
@@ -111,15 +122,27 @@ newChatButton.addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const logoutBtn = document.getElementById("btn-logout");
+  const newChatBtn = document.getElementById("delete-chat-button");
   const token = localStorage.getItem("token"); // Kiểm tra xem có token đăng nhập không
 
   if (!token) {
     // Nếu chưa đăng nhập, ẩn nút logout
-    logoutBtn.style.display = "none";
   } else {
     // Nếu đã đăng nhập, hiển thị nút logout
-    logoutBtn.style.display = "block";
+    newChatBtn.style.display = "none";
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const slideBar = document.getElementById("slide-bar-toggle");
+  const token = localStorage.getItem("token"); // Kiểm tra xem có token đăng nhập không
+
+  if (!token) {
+    // Nếu chưa đăng nhập, ẩn nút logout
+    slideBar.style.display = "none";
+  } else {
+    // Nếu đã đăng nhập, hiển thị nút logout
+    slideBar.style.display = "block";
   }
 });
 
@@ -253,7 +276,7 @@ const generateAPIResponse = async (incomingMessageDiv) => {
     // Push the user's message into conversation history
     conversationHistory.push({
       role: "user",
-      parts: [{ text: userMessage }],
+      parts: [{ text: userMessage.message }, ...(userMessage.file.data ? [{ inline_data: userMessage.file }] : [])],
     });
 
     const response = await fetch(API_URL, {
@@ -289,6 +312,7 @@ const generateAPIResponse = async (incomingMessageDiv) => {
     textElement.innerText = error.message; // Display the error message in the text element
     textElement.classList.add("error"); // Add the "error" class to the text
   } finally {
+    userMessage.file = {}; // Reset the file data in the user message
     incomingMessageDiv.classList.remove("loading"); // Remove the "loading" class from the incoming message
     chatList.scrollTop = chatList.scrollHeight; // Scroll to the bottom of the chat list
   }
@@ -329,8 +353,9 @@ const copyMessage = (copyIcon) => {
 // Handle sending outgoing chat messages
 // Handle sending outgoing chat messages
 const handleOutgoingChat = () => {
-  userMessage =
-    typingForm.querySelector(".typing-input").value.trim() || userMessage;
+  userMessage.message = typingForm.querySelector(".typing-input").value.trim() || userMessage;
+  fileUploadWrapper.classList.remove("file-uploaded");
+
   if (!userMessage || isResponseGenerating) return; // Exit if the user message is empty
 
   isResponseGenerating = true; // Set the response generating state to true
@@ -346,11 +371,13 @@ const handleOutgoingChat = () => {
           <img src="${userImage}" alt="User Image" class="avatar">
           <div class="text-container-user">
               <p class="text"></p>
+              ${userMessage.file.data ? `<img style="margin-top: 4px;" src="data:${userMessage.file.mime_type};base64,${userMessage.file.data}" class="attachment" />` : ""}
           </div>
-      </div>`;
+      </div>
+      `;
 
   const outgoingMessageDiv = createMessageElement(html, "outgoing"); // Create an outgoing message element
-  outgoingMessageDiv.querySelector(".text").innerText = userMessage; // Set the user message to the text element
+  outgoingMessageDiv.querySelector(".text").innerText = userMessage.message; // Set the user message to the text element
   chatList.appendChild(outgoingMessageDiv); // Append the outgoing message to the chat list
 
   typingForm.reset(); // Clear input field
@@ -377,10 +404,8 @@ toggleThemeButton.addEventListener("click", () => {
 // Delete all chats from the chat list
 // Delete all chats from the chat list
 deleteChatButton.addEventListener("click", () => {
-  if (confirm("Are you sure you want to delete all chats?")) {
-    localStorage.removeItem("savedChats"); // Remove the saved chats from the local storage
-    loadLocalStorageData();
-  }
+  localStorage.removeItem("savedChats"); // Remove the saved chats from the local storage
+  loadLocalStorageData();
 });
 
 // Prevent the default form submission and handle outgoing chat
@@ -389,6 +414,7 @@ typingForm.addEventListener("submit", (e) => {
 
   handleOutgoingChat();
 });
+document.querySelector("#file-upload").addEventListener("click", () => fileInput.click());
 
 // History Chat
 const listHistoryChat = async () => {
@@ -411,8 +437,8 @@ const listHistoryChat = async () => {
     const jsonRes = await response.json();
     const chatContainer = document.querySelector(".history-chat");
 
-    let listItemsHTML = '<ul class="message-list">';
-    listItemsHTML += `<p class="title-his-chat">History Chat</p>`;
+    let listItemsHTML = `<span class="title-his-chat">History Chat</span>`;
+    listItemsHTML += '<ul class="message-list">';
     jsonRes.forEach((chat) => {
       if (chat.Message && chat.Message.trim() !== "") {
         listItemsHTML += `<li class="message-item" onclick="detailsChat('${chat._id}')" data-chat-id="${chat._id}">
@@ -452,7 +478,7 @@ const listHistoryChat = async () => {
               },
             }
           );
-          if(idChat == chatId){
+          if (idChat == chatId) {
             localStorage.removeItem("savedChats");
             loadLocalStorageData();
             createNewChat();
@@ -463,7 +489,6 @@ const listHistoryChat = async () => {
 
           // Xóa phần tử chat khỏi DOM sau khi xóa thành công
           chatItem.remove();
-          
         } catch (error) {
           console.error("Error deleting chat:", error);
         }
@@ -500,13 +525,67 @@ const detailsChat = async (id) => {
     console.log(localStorage.getItem("savedChats"));
     loadLocalStorageData();
 
-    // console.log("message:", jsonRes); // Kiểm tra phản hồi từ API
-    // jsonRes.forEach((chat) => {
-    //   if (chat.Message && chat.Message.trim() !== "") {
-    //     localStorage.setItem("savedChats", chat.message);
-    //   }
-    // });
   } catch (error) {
     console.error("Error fetching chat details:", error); // Thêm thông báo lỗi
   }
 };
+
+// Voice chat function
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+  const recognition = new SpeechRecognition();
+  recognition.lang = "en-US"; // language English USA
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  const voiceChatButton = document.getElementById("voice-chat-button");
+  const typingInput = document.querySelector(".typing-input");
+
+  voiceChatButton.addEventListener("click", () => {
+    recognition.start();
+  });
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    typingInput.value = transcript;
+  };
+
+  recognition.onend = () => {
+    console.log("Voice recognition ended.");
+  };
+
+  recognition.onerror = (event) => {
+    console.error("Voice recognition error:", event.error);
+  };
+} else {
+  console.warn("Browser does not support Web Speech API.");
+}
+
+
+// Handle file input change and preview the selected file
+fileInput.addEventListener("change", () => {
+  const file = fileInput.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    fileInput.value = "";
+    fileUploadWrapper.querySelector("img").src = e.target.result;
+    fileUploadWrapper.classList.add("file-uploaded");
+    const base64String = e.target.result.split(",")[1];
+    // Store file data in userData
+    userMessage.file = {
+      data: base64String,
+      mime_type: file.type,
+    };
+  };
+  reader.readAsDataURL(file);
+});
+// Cancel file upload
+fileCancelButton.addEventListener("click", () => {
+  userMessage.file = {};
+  fileUploadWrapper.classList.remove("file-uploaded");
+});
+
+// document.querySelector("#file-upload").addEventListener("click", () => fileInput.click());
