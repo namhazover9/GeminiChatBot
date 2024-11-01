@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Store verifyToken for OTP verification step
                 localStorage.setItem("verifyToken", data.verifyToken);
                 localStorage.setItem("userId", data.userId);
-                window.location.href = "/html/otp.html"; // Redirect to OTP page
+                window.location.href = "/frontend/html/otp.html"; // Redirect to OTP page
             } else {
                 alert(data.message);
             }

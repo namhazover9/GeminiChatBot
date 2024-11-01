@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loginBtn.innerHTML = `<img src="${avatarUrl}" alt="Avatar" class="avatar-icon">`;
   } else {
     // Nếu chưa đăng nhập, hiển thị nút "Login"
-    loginBtn.innerHTML = `<button class="btn-login" onclick="location.href='/html/login.html'">Login</button>`;
+    loginBtn.innerHTML = `<button class="btn-login" onclick="location.href='/frontend/html/login.html'">Login</button>`;
   }
 });
 
@@ -151,7 +151,7 @@ const logout = () => {
     // Cập nhật giao diện đăng nhập
     const loginBtn = document.getElementById("btn-login");
     const titleHello = document.getElementById("title");
-    loginBtn.innerHTML = `<button class="btn-login" onclick="location.href='/html/login.html'">Login</button>`;
+    loginBtn.innerHTML = `<button class="btn-login" onclick="location.href='/frontend/html/login.html'">Login</button>`;
     titleHello.innerHTML = `<h2 class="title">Hello there,</h2>`;
 
     // Tải lại trang
@@ -311,7 +311,7 @@ const generateAPIResponse = async (incomingMessageDiv) => {
 const showLoadingAnimation = () => {
   const html = `
         <div class="message-content">
-            <img src="/images/BigF.png" alt="Gemini Image" class="avatar">
+            <img src="/frontend/images/BigF.png" alt="Gemini Image" class="avatar">
             <div class="text-container-bot">
                 <p class="text"></p>
             </div>
@@ -352,7 +352,7 @@ const handleOutgoingChat = () => {
   const avatarUrl = localStorage.getItem("avatarUrl");
 
   // Kiểm tra xem người dùng đã đăng nhập hay chưa
-  const userImage = avatarUrl ? avatarUrl : "/images/user.png"; // Nếu đã đăng nhập, dùng avatar; nếu không, dùng user.png
+  const userImage = avatarUrl ? avatarUrl : "/frontend/images/user.png"; // Nếu đã đăng nhập, dùng avatar; nếu không, dùng user.png
 
   const html = `
       <div class="message-content">
