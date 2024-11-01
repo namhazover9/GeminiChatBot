@@ -39,7 +39,7 @@
   --secondary-background: #1E1F20;
   --background-code: #F9F9F9;
   --label-code: #efefef;
-  --navbar-color: #fcfcfc;
+  --navbar-color: #f7f7f7;
   --transparent-color: #fcfcfccc;
   --box-shadow: 0 2px 4px rgb(255, 255, 255, 0.5);
 }
@@ -639,7 +639,11 @@ code {
   padding: 5% 0;
   .title-his-chat {
     font-size: 14px;
+    color: var(--text-color);
+    font-style: 1.5rem;
+    font-weight: bold;
   }
+  
   .message-list {
     display: flex;
     flex-direction: column;
@@ -650,10 +654,12 @@ code {
     font-weight: bold;
     max-height: 69vh;
     overflow-y: auto;
+
     .title-his-chat {
       font-size: 12px;
       font-weight: 500;
       margin: 15% 0 5%;
+      color: var(--text-color);
     }
 
     .message-item {
@@ -671,10 +677,11 @@ code {
         text-overflow: ellipsis;
         white-space: nowrap;
         max-width: calc(100% - 24px);
+        color: var(--text-color);
       }
 
       .material-symbols-rounded {
-        color: #bde1c7;
+        color: var(--text-color);
         transition: transform 0.3s ease;
       }
 
@@ -684,8 +691,10 @@ code {
     }
 
     .message-item:hover {
-      background-color: #f3f4f122;
+      background: var(--secondary-color);
       border-radius: 5px;
+      /* transform: scale(1.05);
+      transition: all 0.5s ease-in-out; */
     }
   }
 }
