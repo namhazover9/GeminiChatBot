@@ -14,8 +14,8 @@ body {
     overflow: hidden;
     /* background: linear-gradient(to right, #2F8B9E, #E0DB9B); */
     background: -webkit-radial-gradient(transparent, transparent),
-    url(https://images.unsplash.com/photo-1542549596-c5ea2b9f69fc?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) repeat;
-    /* background-size: 100%; */
+    url(https://images.unsplash.com/photo-1513267257196-91be473829b3?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) repeat;
+    background-size: 100%;
     /* -webkit-text-fill-color: transparent; */
     -webkit-background-clip: text;
     animation: background 22s infinite linear;
@@ -43,11 +43,11 @@ body::before {
 }
 
 .container {
-    background: linear-gradient(to right, #E0DB9B, #2F8B9E);
+    background: linear-gradient(to right, #FFF799 , #82CDDD);
     position: relative;
     height: 500px;
     width: 330px;
-    box-shadow: 0px 0px 24px #2F8B9E;
+    box-shadow: 0px 0px 24px #82CDDD;
     overflow: hidden;
     /* Prevents content overflow */
     border-radius: 5px;
@@ -57,7 +57,7 @@ body::before {
     position: relative;
     height: 70%;
     width: 75%;
-    box-shadow: 0px 0px 24px #2F8B9E;
+    box-shadow: 0px 0px 24px #82CDDD;
     overflow: hidden;
     border-radius: 5px;
     z-index: 999;
@@ -123,7 +123,7 @@ body::before {
 .screen__background__shape2 {
     height: 220px;
     width: 220px;
-    background: linear-gradient(to right, #E0DB9B, #2F8B9E);
+    background: linear-gradient(to right,  #FFF799 , #82CDDD);
     top: -172px;
     right: 0;
     border-radius: 32px;
@@ -132,7 +132,7 @@ body::before {
 .screen__background__shape3 {
     height: 540px;
     width: 190px;
-    background: linear-gradient(to right, #E0DB9B, #2F8B9E);
+    background: linear-gradient(to right, #FFF799, #82CDDD );
     top: -24px;
     right: 0;
     border-radius: 32px;
@@ -141,7 +141,7 @@ body::before {
 .screen__background__shape4 {
     height: 400px;
     width: 200px;
-    background: linear-gradient(to right, #E0DB9B, #2F8B9E);
+    background: linear-gradient(to right , #FFF799, #82CDDD );
     top: 420px;
     right: 50px;
     border-radius: 60px;
@@ -211,8 +211,9 @@ body::before {
 .arrow-back {
     font-family: inherit;
     font-size: 0.8rem;
-    background: linear-gradient(to right, #E0DB9B, #2F8B9E);
-    color: white;
+    background: linear-gradient(to right , #FFF799, #82CDDD);
+    color: #333;
+    font-weight: bold;
     display: flex;
     align-items: center;
     border: none;
