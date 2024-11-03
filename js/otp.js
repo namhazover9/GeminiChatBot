@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("avatarUrl", "/images/profile.png"); // Giả sử abc.jpg là ảnh avatar
                 localStorage.setItem("helloName", "Hello Nam Le,"); // Giả sử abc.jpg là ảnh avatar
-                window.location.href = "/html/index.html"; // Điều hướng đến trang home
+                window.location.href = "/index.html"; // Điều hướng đến trang home
             } else {
                 alert(data.message);
             }
