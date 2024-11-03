@@ -311,7 +311,7 @@ const generateAPIResponse = async (incomingMessageDiv) => {
 const showLoadingAnimation = () => {
   const html = `
         <div class="message-content">
-            <img src="/frontend/images/BigF.png" alt="Gemini Image" class="avatar">
+            <img src="/frontend/images/logo_bf1.png" alt="Gemini Image" class="avatar">
             <div class="text-container-bot">
                 <p class="text"></p>
             </div>

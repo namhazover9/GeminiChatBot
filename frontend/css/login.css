@@ -93,7 +93,7 @@ body::before {
 .logo-image {
     margin: 5%;
     position: relative;
-    width: 15%;
+    width: 20%;
     z-index: 999;
 }
 
