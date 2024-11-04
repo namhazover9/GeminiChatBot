@@ -49,6 +49,36 @@ body {
   color: var(--secondary-background);
 }
 
+.bg {
+  animation:slide 3s ease-in-out infinite alternate;
+  background-image: linear-gradient(-60deg,  #b7b0b069 50%, var(--primary-color) 50%);
+  bottom:0;
+  left:-50%;
+  opacity:.5;
+  position:fixed;
+  right:-50%;
+  top:0;
+  z-index:-1;
+}
+
+.bg2 {
+  animation-direction:alternate-reverse;
+  animation-duration:7s;
+}
+
+.bg3 {
+  animation-duration:8s;
+}
+
+@keyframes slide {
+  0% {
+    transform:translateX(-25%);
+  }
+  100% {
+    transform:translateX(25%);
+  }
+}
+
 .cube {
   position: absolute;
   top: 80vh;
@@ -60,6 +90,7 @@ body {
   transform: scale(0) rotate(0deg) translate(-50%, -50%);
   -webkit-animation: cube 10s ease-in forwards infinite;
           animation: cube 10s ease-in forwards infinite;
+  z-index: 1;        
 }
 .cube:nth-child(2n) {
   border-color: #E0DB9B;
@@ -68,31 +99,31 @@ body {
   -webkit-animation-delay: 1s;
           animation-delay: 1s;
   left: 25vw;
-  top: 40vh;
+  top: 20vh;
 }
 .cube:nth-child(3) {
-  -webkit-animation-delay: 4s;
-          animation-delay: 4s;
+  -webkit-animation-delay: 3s;
+          animation-delay: 3s;
   left: 75vw;
-  top: 50vh;
+  top: 14vh;
 }
 .cube:nth-child(4) {
-  -webkit-animation-delay: 6s;
-          animation-delay: 6s;
-  left: 80vw;
+  -webkit-animation-delay: 4s;
+          animation-delay: 4s;
+  left: 90vw;
   top: 15vh;
 }
 .cube:nth-child(5) {
-  -webkit-animation-delay: 8s;
-          animation-delay: 8s;
-  left: 10vw;
-  top: 75vh;
+  -webkit-animation-delay: 6s;
+          animation-delay: 6s;
+  left: 5vw;
+  top: 16vh;
 }
 .cube:nth-child(6) {
-  -webkit-animation-delay: 10s;
-          animation-delay: 10s;
+  -webkit-animation-delay: 8s;
+          animation-delay: 8s;
   left: 50vw;
-  top: 10vh;
+  top: 13vh;
 }
 
 @-webkit-keyframes cube {
@@ -133,12 +164,16 @@ body {
   line-height: 1;
   font-family: 'Rajdhani', sans-serif;
   background: -webkit-radial-gradient(transparent, transparent),
-   url(https://images.unsplash.com/photo-1559762717-99c81ac85459?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) repeat;
+   url(https://scontent.fdad3-4.fna.fbcdn.net/v/t1.15752-9/462569609_604026235514654_3772776852841171174_n.png?_nc_cat=104&ccb=1-7&_nc_sid=9f807c&_nc_ohc=kLxBeZ4YDMAQ7kNvgHWj9fr&_nc_zt=23&_nc_ht=scontent.fdad3-4.fna&_nc_gid=AafVlK3hI263UVPVS0HyKAP&oh=03_Q7cD1QGdvv_LPfEgHzRzUfHiExM6FYodaf0lBG0BDK9Nj5metw&oe=67500F90) repeat;
   background-size: 200px auto;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
-  animation: background 6s infinite linear;
+  -webkit-text-stroke: 1px black;
+  animation: background 8s infinite linear;
 }
+
+
+
 
 /* Navbar */
 .navbar {
@@ -163,6 +198,8 @@ body {
   background: linear-gradient(to right, #82cddd, #fff799);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.5px black;
+
 }
 
 #toggle-theme-button {
@@ -862,4 +899,18 @@ code {
       transition: all 0.5s ease-in-out; */
     }
   }
+}
+
+.btn-custom-confirm {
+  background-color: #4CAF50; /* Màu xanh lá cây */
+  color: white;
+}
+
+.btn-custom-cancel {
+  background-color: #f44336; /* Màu đỏ */
+  color: white;
+}
+
+.small-swal-popup {
+  font-size: 10px; /* Điều chỉnh kích thước chữ nếu cần */
 }
