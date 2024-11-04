@@ -14,7 +14,7 @@ body {
     overflow: hidden;
     /* background: linear-gradient(to right, #2F8B9E, #E0DB9B); */
     background: -webkit-radial-gradient(transparent, transparent),
-    url(https://files.oaiusercontent.com/file-TaD2sA0XMrWb3ntz8KMJMOiQ?se=2024-11-04T08%3A18%3A23Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Defd941cd-c1a0-4af3-9cc4-d4b465e8ec3a.webp&sig=74t4IaT6B/40kEzT9levI0DkCNe18AkCRAOfGJlbUlY%3D) repeat;
+    url(/images/otp-bg.webp) repeat;
     background-size: 100%;
     /* -webkit-text-fill-color: transparent; */
     -webkit-background-clip: text;

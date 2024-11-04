@@ -14,7 +14,7 @@ body {
     overflow: hidden;
     /* background: linear-gradient(to right, #2F8B9E, #E0DB9B); */
     background: -webkit-radial-gradient(transparent, transparent),
-    url(https://files.oaiusercontent.com/file-75LPkzGxKBlX7YzPI2Zdm9P4?se=2024-11-04T08%3A18%3A57Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Def1fcbee-e3a4-4e86-8c09-87d47f8c4aec.webp&sig=EiPVgCNAfbpBJywTS2Ilge4Ta3mg76PluHm9zp40sjs%3D) repeat;
+    url("/images/login-bg.webp") repeat;
     background-size: 100%;
     /* -webkit-text-fill-color: transparent; */
     -webkit-background-clip: text;

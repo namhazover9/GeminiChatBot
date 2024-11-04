@@ -50,8 +50,8 @@ body {
 }
 
 .bg {
-  animation:slide 3s ease-in-out infinite alternate;
-  background-image: linear-gradient(-60deg,  #b7b0b069 50%, var(--primary-color) 50%);
+  animation:slide 8s ease-in-out infinite alternate;
+  background-image: linear-gradient(-60deg,  #7e6e6e5c 50%, var(--transparent-color) 50%);
   bottom:0;
   left:-50%;
   opacity:.5;
@@ -63,11 +63,11 @@ body {
 
 .bg2 {
   animation-direction:alternate-reverse;
-  animation-duration:7s;
+  animation-duration:9s;
 }
 
 .bg3 {
-  animation-duration:8s;
+  animation-duration:10s;
 }
 
 @keyframes slide {
@@ -164,7 +164,7 @@ body {
   line-height: 1;
   font-family: 'Rajdhani', sans-serif;
   background: -webkit-radial-gradient(transparent, transparent),
-   url(https://scontent.fdad3-4.fna.fbcdn.net/v/t1.15752-9/462569609_604026235514654_3772776852841171174_n.png?_nc_cat=104&ccb=1-7&_nc_sid=9f807c&_nc_ohc=kLxBeZ4YDMAQ7kNvgHWj9fr&_nc_zt=23&_nc_ht=scontent.fdad3-4.fna&_nc_gid=AafVlK3hI263UVPVS0HyKAP&oh=03_Q7cD1QGdvv_LPfEgHzRzUfHiExM6FYodaf0lBG0BDK9Nj5metw&oe=67500F90) repeat;
+   url("/images/text-animation.png") repeat;
   background-size: 200px auto;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
