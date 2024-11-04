@@ -4,6 +4,7 @@ const suggestions = document.querySelectorAll(".suggestion-list .suggestion");
 const toggleThemeButton = document.querySelector("#toggle-theme-button");
 const deleteChatButton = document.querySelector("#delete-chat-button");
 const newChatButton = document.querySelector("#new-chat-btn");
+const showSuccessAlertIndex = localStorage.getItem("showSuccessAlertIndex");
 let idChat = null;
 let userMessage = null;
 let isResponseGenerating = false;
@@ -12,6 +13,27 @@ let conversationHistory = [];
 // API configuration
 const API_KEY = "AIzaSyC8e5jD2ccpBnEjLM9oKipA7O2xuMa8MBQ";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
+
+if (showSuccessAlertIndex === "true") {
+  // Hiển thị thông báo thành công
+  Swal.fire({
+    position: "top",
+    icon: "success",
+    title: "Logged in successfully",
+    showConfirmButton: false,
+    timer: 1500,
+    width: '300px', // Điều chỉnh chiều rộng
+    padding: '1em', // Điều chỉnh padding
+    customClass: {
+        popup: 'small-swal-popup' // Thêm lớp tùy chỉnh nếu cần
+    }
+  });
+
+  // Xóa trạng thái thông báo để không hiển thị lại khi refresh trang
+  localStorage.removeItem("showSuccessAlertIndex");
+}
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const loginBtn = document.getElementById("btn-login");
@@ -138,29 +160,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 const logout = () => {
-  // Hiển thị hộp thoại xác nhận
-  const confirmLogout = confirm("Are you sure you want to log out?");
+  // Tạo hộp thoại xác nhận đăng xuất
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You will be logged out!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, log me out!",
+    cancelButtonText: "Cancel",
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Xóa các dữ liệu liên quan đến trạng thái đăng nhập
+      localStorage.removeItem("token");
+      localStorage.removeItem("avatarUrl");
+      localStorage.removeItem("helloName");
+      localStorage.removeItem("savedChats");
 
-  if (confirmLogout) {
-    // Xóa các dữ liệu liên quan đến trạng thái đăng nhập
-    localStorage.removeItem("token");
-    localStorage.removeItem("avatarUrl");
-    localStorage.removeItem("helloName");
-    localStorage.removeItem("savedChats");
+      // Cập nhật giao diện đăng nhập
+      const loginBtn = document.getElementById("btn-login");
+      const titleHello = document.getElementById("title");
+      loginBtn.innerHTML = `<button class="btn-login" onclick="location.href='/html/login.html'">Login</button>`;
+      titleHello.innerHTML = `<h2 class="title">Hello there,</h2>`;
 
-    // Cập nhật giao diện đăng nhập
-    const loginBtn = document.getElementById("btn-login");
-    const titleHello = document.getElementById("title");
-    loginBtn.innerHTML = `<button class="btn-login" onclick="location.href='/html/login.html'">Login</button>`;
-    titleHello.innerHTML = `<h2 class="title">Hello there,</h2>`;
-
-    // Tải lại trang
-    location.reload();
-  }
+      // Tải lại trang
+      location.reload();
+    }
+  });
 };
 
-// Gọi hàm logout khi người dùng nhấn nút đăng xuất
+// Thêm sự kiện cho nút logout
 document.getElementById("btn-logout").addEventListener("click", logout);
+
 
 // Create a message element and return it
 const createMessageElement = (content, ...classes) => {
@@ -438,21 +469,34 @@ const listHistoryChat = async () => {
 
     // Thêm sự kiện xác nhận khi xóa từng mục
     const deleteIcons = document.querySelectorAll(".delete-icon");
+
+
     deleteIcons.forEach((icon) => {
-      icon.addEventListener("click", async (e) => {
-        e.stopPropagation(); // Ngăn chặn sự kiện lan truyền
+  icon.addEventListener("click", async (e) => {
+    e.stopPropagation(); // Ngăn chặn sự kiện lan truyền
 
-        const chatItem = e.target.closest(".message-item");
-        const chatId = chatItem.getAttribute("data-chat-id");
+    const chatItem = e.target.closest(".message-item");
+    const chatId = chatItem.getAttribute("data-chat-id");
 
-        // Hiển thị hộp thoại xác nhận
-        const confirmDelete = confirm(
-          "Are you sure you want to delete this chat?"
-        );
-        if (!confirmDelete) return;
-
-        // Gửi yêu cầu xóa đến API
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-custom-confirm",
+        cancelButton: "btn btn-custom-cancel"
+      },
+      buttonsStyling: true
+    });
+    swalWithBootstrapButtons.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: true
+    }).then(async (result) => {
+      if (result.isConfirmed) {
         try {
+          // Gửi yêu cầu xóa đến API
           const deleteResponse = await fetch(
             `https://chatbotdevplus-3.onrender.com/api/chat/${chatId}`,
             {
@@ -463,22 +507,32 @@ const listHistoryChat = async () => {
               },
             }
           );
-          if (idChat == chatId) {
-            localStorage.removeItem("savedChats");
-            loadLocalStorageData();
-            createNewChat();
-          }
+
           if (!deleteResponse.ok) {
             throw new Error("Failed to delete chat");
           }
 
           // Xóa phần tử chat khỏi DOM sau khi xóa thành công
           chatItem.remove();
+          swalWithBootstrapButtons.fire("Deleted!", "Your chat has been deleted.", "success");
+
+          // Kiểm tra nếu chat hiện tại đang được hiển thị thì tải lại chat
+          if (idChat == chatId) {
+            localStorage.removeItem("savedChats");
+            loadLocalStorageData();
+            createNewChat();
+          }
         } catch (error) {
           console.error("Error deleting chat:", error);
+          swalWithBootstrapButtons.fire("Error", "Failed to delete chat.", "error");
         }
-      });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        swalWithBootstrapButtons.fire("Cancelled", "Your chat is safe :)", "error");
+      }
     });
+  });
+});
+
   } catch (error) {
     console.error("Error fetching chat history:", error);
   }
@@ -553,3 +607,4 @@ if (SpeechRecognition) {
 } else {
   console.warn("Browser does not support Web Speech API.");
 }
+
