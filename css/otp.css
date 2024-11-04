@@ -398,3 +398,24 @@ body::before {
     border-radius: 100%;
     opacity: 0.9;
 }
+
+.btn-shine {
+    background: linear-gradient(to right, #2794aa 0, #fff 10%, #2794aa 20%);
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s infinite linear;
+    animation-fill-mode: forwards;
+    -webkit-text-size-adjust: none;
+}
+
+@keyframes shine {
+    0% {
+        background-position: 0;
+    }
+    60% {
+        background-position: 180px;
+    }
+    100% {
+        background-position: 220px;
+    }
+}
