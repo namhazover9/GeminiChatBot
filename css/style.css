@@ -242,7 +242,7 @@ body {
   color: white;
   overflow-x: hidden;
   transition: 0.5s;
-  z-index: 1000;
+  z-index: 50;
   /* Ensure it overlaps all elements */
 }
 
