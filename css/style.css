@@ -722,7 +722,7 @@ code {
   bottom: 0;
   padding: 5px;
   background: var(--primary-color);
-  z-index: 100;
+  z-index: 49;
 }
 
 .typing-area :where(.typing-form, .action-buttons) {
