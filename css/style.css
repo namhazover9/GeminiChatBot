@@ -47,6 +47,7 @@
 body {
   background: var(--primary-color);
   color: var(--secondary-background);
+  overflow: hidden;
 }
 
 .bg {
@@ -177,11 +178,15 @@ body {
 
 /* Navbar */
 .navbar {
+  z-index: 100;
+  width: -webkit-fill-available;
+  top: 0;
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: var(--navbar-color);
-  padding: 10px 20px;
+  padding: 5px 20px;
   box-shadow: var(--box-shadow);
 }
 
@@ -316,7 +321,7 @@ body {
 }
 
 .header-content {
-  margin-top: 2vh;
+  margin-top: 4vh;
 }
 
 .header-button-right {
@@ -422,9 +427,9 @@ body.hide-header .header-body-content {
 
 .chats {
   padding: 2rem 1rem 12rem;
+  scrollbar-color: #999 transparent;
   max-height: 100vh;
   overflow-y: auto;
-  scrollbar-color: #999 transparent;
 }
 
 .chats .message.incoming {
@@ -537,6 +542,7 @@ code {
   padding: 10px;
   border-radius: 12px;
   box-shadow: 0px -1px 4px 4px rgb(199 188 64 / 67%);
+  display: grid;
 }
 
 .chats .message__text {
@@ -563,22 +569,22 @@ code {
 }
 
 .hljs {
+  color: var(--secondary-background) !important;
   background-color: var(--background-code) !important;
+  overflow-x: auto !important;
+  .hljs-string{
+    color: #2489dd;
+  }
+  .hljs-number{
+    color: #2489dd;
+  }
+  .hljs-title{
+    color: #a555fa !important;
+  }
+  .hljs-meta{
+    color: #2489dd;
+  }
 }
-
-/* .text-container-user {
-    
-    padding: 10px;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(130, 205, 221, 1);
-}
-
-.text-container-bot {
-    margin-bottom: 12px;
-    padding: 10px;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(255, 247, 153, 1);
-} */
 
 /* For image upload */
 .attachment {
@@ -714,8 +720,9 @@ code {
   position: fixed;
   width: 100%;
   bottom: 0;
-  padding: 1rem;
+  padding: 5px;
   background: var(--primary-color);
+  z-index: 100;
 }
 
 .typing-area :where(.typing-form, .action-buttons) {
@@ -913,4 +920,37 @@ code {
 
 .small-swal-popup {
   font-size: 10px; /* Điều chỉnh kích thước chữ nếu cần */
+}
+
+@media (max-width: 768px) {
+  .header .title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  .text-animation {
+    font-size: 2em;
+  }
+  .disclaimer-text{
+    display: none;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .header .title {
+    font-size: 2.5rem;
+    line-height: 3rem;
+  }
+  .text-animation {
+    font-size: 3em;
+  }
+}
+
+@media (min-width: 1025px) {
+  .header .title {
+    font-size: 3rem;
+    line-height: 3.5rem;
+  }
+  .text-animation {
+    font-size: 4em;
+  }
 }
