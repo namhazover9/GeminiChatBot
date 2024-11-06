@@ -51,7 +51,7 @@ body {
 }
 
 .bg {
-  animation:slide 8s ease-in-out infinite alternate;
+  animation:slide 10s ease-in-out infinite alternate;
   background-image: linear-gradient(-60deg,  #7e6e6e5c 50%, var(--transparent-color) 50%);
   bottom:0;
   left:-50%;
@@ -64,11 +64,11 @@ body {
 
 .bg2 {
   animation-direction:alternate-reverse;
-  animation-duration:9s;
+  animation-duration:12s;
 }
 
 .bg3 {
-  animation-duration:10s;
+  animation-duration:14s;
 }
 
 @keyframes slide {
@@ -236,7 +236,7 @@ body {
   top: 0;
   left: -250px;
   /* Hidden by default */
-  width: 250px;
+  width: 260px;
   height: 100%;
   background-color: var(--transparent-color);
   color: white;

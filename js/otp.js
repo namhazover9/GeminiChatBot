@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 localStorage.setItem("showSuccessAlertIndex", "true");
                 // Lưu token vào localStorage nếu cần thiết
                 localStorage.setItem("token", data.token);
-                localStorage.setItem("avatarUrl", "/images/profile.png"); // Giả sử abc.jpg là ảnh avatar
+                localStorage.setItem("avatarUrl", "/images/fkava.png"); // Giả sử abc.jpg là ảnh avatar
                 localStorage.setItem("helloName", "Hello my friend,"); // Giả sử abc.jpg là ảnh avatar
                 window.location.href = "/index.html"; // Điều hướng đến trang home
             } else {
